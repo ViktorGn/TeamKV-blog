@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dream Store</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/DSStyle.css' />
+    <script src="/javascripts/jquery-1.10.2.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+</head>
+<body>
+
+<!-- MAIN CONTENT DIV -->
+<div class="mainCont" style="margin-top: -70px">
+    <header>
+
+        <!-- LOGO -->
+
+        <img onclick="location.href='/'" id="logo" src="/icons/LOGO1.png">
+
+        <div class="pointlessMarketingTitle" id="companyName">DREAM TEAM STORE</div>
+        <div class="pointlessMarketingTitle" id="companyMotto">The Store of YOUR dreams!</div>
+
+        <!-- User Menu -->
+        {{#if user}}
+            <div id="welcome">Welcome (<b>{{user.fullName}}</b>)!</div>
+        <div class="userButtons">
+            <div class="userMenu" id="profile" onclick="location.href='/user/details'"><span class="joinLink">Profile</span></div>
+            <div class="userMenu" id="logout" onclick="location.href='/user/logout'"><span class="joinLink">Logout</span></div>
+        </div>
+        {{/if}}
+        {{#unless user}}
+            <div onclick="location.href='/user/login'" class="userMenu"><span class="joinLink">Join</span></div>
+        {{/unless}}
+        <!-- Menu -->
+
+        <div id="menu">
+            <div id="leftSideOfMenu">
+                <a href="/article/create" id="postLink">New Article</a>
+            </div>
+            <div id="searchBar">
+                <input id="searchField" type="text" placeholder="Looking for..." />
+                <input type="button" id="searchButton">
+            </div>
+        </div>
+
+    </header>
+
+    <!-- Page Content -->
+
+    {{#if error }}
+        <h2>{{error}}</h2>
+    {{/if}}
+
+    <div id="pageContent">
+        {{{body}}}
+    </div>
+</div>
+
+<footer>
+    <div class="container modal-footer">
+        <a>Terms and Conditions</a> //TODO<br />
+        <a>Contact</a> //TODO<br />
+        <p>&copy; 2016 - Dream Team Foundation</p>
+    </div>
+</footer>
+
+</body>
+</html>

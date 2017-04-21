@@ -1,0 +1,319 @@
+/* Main Page Content */
+
+body {
+    height: 100%;
+    min-height: 100%;
+    font-family: Arial,sans-serif;
+}
+
+.mainCont {
+    width: 1000px;
+    max-width: 1000px;
+    height: 100%;
+    margin:0 auto;
+}
+
+#pageContent {
+    background-color: #f7f7f7;
+    width: 100%;
+    height: 90%;
+}
+
+.ads {
+    margin-left: 5px;
+    padding: 1px;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #b8b8b8;
+    width: 320px;
+    height: 100px;
+    display: inline-block;
+}
+
+.errorBox {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.errorMessage {
+    position: relative;
+    font-size: 25px;
+    border: hidden;
+    padding: 10px;
+    display: inline-block;
+    background-color: #ffc2b1;
+    border-radius: 10px;
+}
+
+/* LogIn and Register*/
+
+#logLogo {
+    background-color: transparent;
+    position: relative;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 264px;
+    cursor: pointer;
+}
+
+#joinContent {
+    border-style: solid;
+    border-width: thin;
+    border-color: #d8d8d8;
+    padding: 5px;
+    background-color: #ffffff;
+    margin: 20px auto;
+    width: 350px;
+    height: 400px;
+}
+
+#loginForm {
+    position: relative;
+    margin: -20px 20px 0 20px;
+}
+
+#signInText {
+    font-size: 30px;
+}
+
+#emailDiv{
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#fullNameDiv {
+    margin-top: -10px;
+    font-weight: bold;
+}
+
+#passDiv {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#inputEmail, #inputPassword, #inputFullName {
+    width: 100%;
+    font-size: 15px;
+    height: 25px;
+    padding: 1px;
+    margin-top: 5px;
+    border-radius: 4px;
+    border-width: thin;
+}
+
+#inputEmail:focus, #inputPassword:focus, #inputFullName:focus {
+    box-shadow: 0 0 10px #ff5600;
+}
+
+#loginCancel {
+    position: relative;
+    top: 2px;
+    margin-left: 260px;
+}
+
+#signInButton {
+    width: 100%;
+    height: 30px;
+    margin-top: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border-width: 1px;
+    border-color: #7f7f7f;
+    border-radius: 4px;
+    background: linear-gradient(#fac591, #ffab38);
+}
+
+#signInButton:hover {
+    background: linear-gradient(#ebb786, #e89935);
+}
+
+#newUserText {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#newUserText:after {
+    width: 100%;
+    display: block;
+    height: 1px;
+    margin-top: -10px;
+    background: #d8d8d8;
+    content: "";
+}
+
+#goToRegistration {
+    width: 100%;
+    height: 30px;
+    margin-top: 30px;
+    font-size: 15px;
+    cursor: pointer;
+    border-width: 1px;
+    border-color: #7f7f7f;
+    border-radius: 4px;
+    background: linear-gradient(#ffffff, #b8b8b8);
+}
+
+#goToRegistration:hover {
+    background: linear-gradient(#e1e1e1, #969696);
+}
+
+/* LOGO */
+
+#logo {
+    background-color: transparent;
+    margin-top: 30px;
+    width: 264px;
+    cursor: pointer;
+}
+
+.pointlessMarketingTitle {
+    position: relative;
+    float: right;
+    cursor: default;
+}
+
+#companyName {
+    top: 50px;
+    right: 350px;
+    color: #d8d8d8;
+    font-size: 20px;
+    text-shadow: 1px 1px 1px #000000
+}
+
+#companyMotto {
+    top: 80px;
+    right: 30px;
+    font-size: 40px;
+    font-style: italic;
+    text-shadow: 1px 1px 5px grey;
+}
+
+#JoinPageLogo {
+    background-color: transparent;
+    margin-top: 30px;
+    margin-left: 360px;
+    width: 264px;
+    cursor: pointer;
+}
+/* Menu */
+
+#menu {
+    margin-top: -10px;
+    width: auto;
+    font-size: 28px;
+    height: 75px;
+    border-color: #ff801d;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+}
+
+.userMenu {
+    position: relative;
+    background-color: #ff801d;
+    padding: 5px;
+    width: 100px;
+    top: -100px;
+    right: -888px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 2px 2px 10px #888888;
+    transition: 0.5s;
+}
+
+.userMenu:hover {
+    box-shadow: 0 0 5px #888888;
+}
+
+.userMenu:hover .joinLink {
+    color: rgba(48,48,48,1);
+    text-shadow: 1px 1px 0 rgba(140,140,140,0.6), -1px -1px 0 rgba(0,0,0,0.67);
+}
+
+#leftSideOfMenu {
+    position: relative;
+    float: left;
+    top: 5px;
+}
+
+#welcome {
+    font-size: 20px;
+    float: right;
+}
+
+/* Menu Buttons */
+
+#postLink, .joinLink {
+    color: #ffffff;
+    text-decoration:none;
+    cursor: pointer;
+    font-size: 28px;
+    text-shadow: 1px 1px 4px #888888;
+    transition: 0.5s;
+}
+
+#postLink {
+    background: #ff801d; /* For browsers that do not support gradients */
+    background: linear-gradient(#ff801d, #ffa117, #ff801d); /* Standard syntax */
+    padding: 10px 5px 10px 5px;
+}
+
+#postLink:hover {
+    border: hidden;
+    border-radius: 0 0 200px 200px /25px;
+    cursor: pointer;
+}
+
+#logout {
+    margin-top: -50px;
+}
+
+#profile {
+    margin-left: -120px;
+}
+
+/* Search */
+
+#searchBar {
+    position: relative;
+    float: right;
+    width: 40%;
+    background-color: #ff801d;
+}
+
+#searchField {
+    width: 70%;
+    position: relative;
+    left: 15px;
+    top: -12px;
+    font-size: 20px;
+    border-width: 0;
+    padding: 5px;
+}
+
+#searchButton {
+    background-color: transparent;
+    background-image: url(../icons/search.png);
+    background-size: cover;
+    position: relative;
+    bottom: -5px;
+    margin-left: 30px;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    border: solid;
+    border-width: 0;
+    transition: 0.5s;
+}
+
+#searchButton:focus, #searchField:focus, #inputEmail:focus, #inputPassword:focus, #inputFullName:focus {
+    outline:0;
+}
+
+#searchButton:hover {
+    background-color: #ff9e0b;
+    border-radius: 10px;
+}
