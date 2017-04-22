@@ -11,6 +11,8 @@ module.exports = (app, config) => {
     app.set('view engine', 'hbs');
 
     // This set up which is the parser for the request's data.
+    // app.use method tells the app to use the parameters you're giving it. This can be a function or a path and a function.
+
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
 

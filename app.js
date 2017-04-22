@@ -9,3 +9,6 @@ require('./config/passport')();
 require('./config/routes')(app);
 
 module.exports = app;
+
+//The require function is pretty straight forward.
+// It's a built-in Node function that imports an object (module.exports) from another file or module.
