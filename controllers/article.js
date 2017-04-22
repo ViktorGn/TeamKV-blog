@@ -2,6 +2,11 @@ const Article = require('mongoose').model('Article');
 
 module.exports = {
     createGet: (req, res) => {
+        if(!req.isAuthenticated()) {
+            errorMsg = 'You should be logged in to make articles!';
+            res.render('user/login', {error: errorMsg, layout: 'join.hbs'});
+            return;
+        }
         res.render('article/create');
     },
 

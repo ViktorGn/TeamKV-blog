@@ -37,10 +37,12 @@
             <div id="leftSideOfMenu">
                 <a href="/article/create" id="postLink">New Article</a>
             </div>
-            <div id="searchBar">
-                <input id="searchField" type="text" placeholder="Looking for..." />
-                <input type="button" id="searchButton">
-            </div>
+            <form method="post" action="/search">
+                <div id="searchBar">
+                    <input id="searchField" type="text" placeholder="Looking for..." />
+                    <button type="submit" id="searchButton">
+                </div>
+            </form>
         </div>
 
     </header>
