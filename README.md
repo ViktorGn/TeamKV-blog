@@ -1,8 +1,8 @@
 # TeamKV-blog
 article\create.hbs
-<code>
+<pre>
 <input class="form-control" id="image" type="file" name="picture">
-</code>
+</pre>
 
 models\Article.js <br />
 picturePath:{type:String},
