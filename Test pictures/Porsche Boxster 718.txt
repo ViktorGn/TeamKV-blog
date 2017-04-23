@@ -1,0 +1,17 @@
+Porsche Boxster 718
+
+Category: Cabriolet / Roadster, New vehicle
+Vehicle Number: S214099
+Availability: Now
+Origin: German edition
+Mileage: 0 km
+Cubic Capacity: 2,000 ccm
+Power: 220 kW (299 PS)
+Fuel:Petrol
+Fuel Consumption :
+6.9?l/100km (combined)*
+9.0?l/100km (urban)*
+5.7?l/100km (extra-urban)*
+CO2 Emissions158?g/km (combined)*
+Basic fuel type: Petrol
+Energy efficiency: classD

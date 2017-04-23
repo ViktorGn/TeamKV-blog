@@ -12,6 +12,16 @@ module.exports = {
 
     createPost: (req, res) => {
         let articleArgs = req.body;
+        let picture = req.files.picture;
+        if (picture) {
+            let filename = picture.name;
+            articleArgs.picturePath = './public/pictures/'+filename;
+                picture.mv('./public/pictures/'+filename, err => {
+                if (err) {
+                    console.log(err.message);
+                }
+            });
+        }
 
         let errorMsg = '';
         if(!req.isAuthenticated()){
@@ -28,6 +38,7 @@ module.exports = {
         }
 
         articleArgs.author = req.user.id;
+
         Article.create(articleArgs).then(article => {
             req.user.articles.push(article.id);
             req.user.save(err => {

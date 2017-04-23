@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
+const fileUpload = require('express-fileupload');
 
 module.exports = (app, config) => {
     // View engine setup.
@@ -36,4 +37,7 @@ module.exports = (app, config) => {
 
     // This makes the content in the "public" folder accessible for every user.
     app.use(express.static(path.join(config.rootFolder, 'public')));
+
+    // Use express-fileupload for upload of files
+    app.use(fileUpload());
 };
