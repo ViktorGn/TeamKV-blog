@@ -1,5 +1,5 @@
 const Article = require('mongoose').model('Article');
-
+const PersistentStore = require('mongoose').model('PersistentStore');
 module.exports = {
     createGet: (req, res) => {
         if(!req.isAuthenticated()) {
@@ -38,6 +38,7 @@ module.exports = {
         }
 
         articleArgs.author = req.user.id;
+ //       console.log(PersistentStore.articleAutoCount);
 
         Article.create(articleArgs).then(article => {
             req.user.articles.push(article.id);

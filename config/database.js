@@ -16,6 +16,8 @@ module.exports = (config) => {
 
     require('./../models/User');
     require('./../models/Article');
+    require('./../models/PersistentStore');
+
 };
 
 

@@ -4,6 +4,7 @@ const homeController = require('./../controllers/home');
 
 module.exports = (app) => {
     app.get('/', homeController.index);
+    app.post('/search',homeController.fullTextSearch);
 
     app.get('/user/register', userController.registerGet);
     app.post('/user/register', userController.registerPost);
