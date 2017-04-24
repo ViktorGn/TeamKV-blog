@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="280306d9-ed72-4c6b-9064-37a27eeec051" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/database.js" afterPath="$PROJECT_DIR$/config/database.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.js" afterPath="$PROJECT_DIR$/config/routes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/article.js" afterPath="$PROJECT_DIR$/controllers/article.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/home.js" afterPath="$PROJECT_DIR$/controllers/home.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/Article.js" afterPath="$PROJECT_DIR$/models/Article.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/layout.hbs" afterPath="$PROJECT_DIR$/views/layout.hbs" />
     </list>
     <ignored path="SoftUniBlog.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -475,7 +469,7 @@
       <workItem from="1492903367835" duration="1255000" />
       <workItem from="1492906086281" duration="2112000" />
       <workItem from="1492955110790" duration="10490000" />
-      <workItem from="1492970293758" duration="20671000" />
+      <workItem from="1492970293758" duration="20701000" />
     </task>
     <task id="LOCAL-00001" summary="Comments to the code. Testing Commit from WebStorm.">
       <created>1492897659919</created>
@@ -498,11 +492,18 @@
       <option name="project" value="LOCAL" />
       <updated>1492971001785</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Picture upload functionality added.&#10; &#10;Directory: \public\pictures&#10;Changes:&#10;controllers\article.js - upload picture&#10;article\create.hbs - picture form&#10;DB changes: articles collection - picturePath added">
+      <created>1493004477247</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1493004477247</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="185861000" />
+    <option name="totallyTimeSpent" value="185891000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-44" y="47" width="1917" height="1288" extended-state="0" />
