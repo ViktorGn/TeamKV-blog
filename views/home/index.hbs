@@ -1,16 +1,12 @@
 <!-- Div Block containing the offers -->
 {{#each articles}}
 <div class="ads">
-    <article onclick="location.href='/article/details/:id'">
-        <img src="{{this.picture}}" style="width: 150px; height: 100px">
-        <div style="width: 160px; height: 100px; display: inline; position: absolute; padding: 5px">
-            <h4>{{this.title}}</h4>
-            <p>
-                {{this.content}}
-            </p>
-            <p>
-                {{this.fullName}}
-            </p>
+    <article onclick="location.href='/article/details/{{id}}'">
+
+        <img src="{{picturePath}}" id="adPicture" alt="Image">
+
+        <div id="adTitle">
+            <h4>{{title}}</h4>
         </div>
     </article>
 </div>

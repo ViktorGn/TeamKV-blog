@@ -1,27 +1,25 @@
-<div class="container body-content">
-    <div class="row">
-        <div class="col-md-12">
-            <article>
-                <header>
-                    <h2>{{title}}</h2>
-                </header>
+<article id="detailsArticle">
 
-                <p>
-                    {{content}}
-                </p>
-                <img src="{{picturePath}}" alt="No image avaialble.">
-                <small class="author">
-                    {{author.fullName}}
-                </small>
+    <small class="author pull-right" style="margin-right: 5px">
+        Ad by {{author.fullName}}, viewed {{viewCount}} times.
+    </small>
 
-                <footer>
-                    <div class="pull-right">
-                        <a class="btn btn-success btn-xs" href="/article/edit/{{id}}">Edit &raquo;</a>
-                        <a class="btn btn-danger btn-xs" href="/article/delete/{{id}}">Delete &raquo;</a>
-                        <a class="btn btn-default btn-xs" href="/">Back &raquo;</a>
-                    </div>
-                </footer>
-            </article>
+    <img src="{{picturePath}}" id="detailsPicture" alt="Image">
+
+        <div id="detailsTitle">
+            <h2>{{title}}</h2>
         </div>
-    </div>
-</div>
+
+
+        <div id="detailsContent">
+            {{content}}
+        </div>
+
+    <footer>
+        <div id="detailsButtons">
+            <a class="btn btn-default btn-xs" href="/">Back &raquo;</a>
+            <a class="btn btn-success btn-xs" href="/article/edit/{{id}}">Edit &raquo;</a>
+            <a class="btn btn-danger btn-xs" href="/article/delete/{{id}}">Delete &raquo;</a>
+        </div>
+    </footer>
+</article>

@@ -8,7 +8,7 @@ let articleSchema = mongoose.Schema({
     autonumber: {type:Number, default:0},
     picturePath:{type:String},
     viewCount: {type: Number, default:0},
-    category: {type: String, default:"General"}
+    category: {type: String, default:"General"},
 });
 
 //Create Search index for title and content fields
