@@ -1,0 +1,28 @@
+<form id="loginForm" method="post" action="/user/register">
+
+    <p id="signInText">Register</p>
+
+    <div id="fullNameDiv">
+        <label for="inputFullName">Your Name</label><br />
+        <input type="text" id="inputFullName" placeholder="Your Name" required name="fullName" value={{fullName}}>
+    </div>
+
+    <div id="emailDiv">
+        <label for="inputEmail">E-mail</label><br />
+        <input type="email" id="inputEmail" placeholder="Email" name="email" required value={{email}} >
+    </div>
+
+    <div id="passDiv">
+        <label for="inputPassword">Password</label><br />
+        <input type="password" id="inputPassword" placeholder="Password" name="password">
+    </div>
+
+    <div id="passDiv">
+        <label for="inputPassword">Confirm Password</label><br />
+        <input type="password" id="inputPassword" placeholder="Confirm Password" required name="repeatedPassword">
+    </div>
+
+    <div>
+        <button type="submit" id="signInButton">Register</button>
+    </div>
+</form>

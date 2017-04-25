@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Магазин за мечти</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/DSStyle.css' />
+    <script src="/javascripts/jquery-1.10.2.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+    <script src="/javascripts/script.js"></script>
+</head>
+<body>
+
+<!-- MAIN CONTENT DIV -->
+<div class="mainCont" style="margin-top: -70px">
+    <header>
+
+        <!-- LOGO -->
+
+        <img onclick="location.href='/'" id="logo" src="/icons/LOGO1.png">
+
+        <div class="pointlessMarketingTitle" id="companyName">DREAM TEAM STORE</div>
+        <div class="pointlessMarketingTitle" id="companyMotto">The Store of YOUR dreams!</div>
+
+        <!-- User Menu -->
+        {{#if user}}
+            <div class="dropdown">
+                <button onclick="myFunction()" class="dropbtn">Моят профил</button>
+                <div id="myDropdown" class="dropdown-content">
+                    {{#if UAK}}
+                        <form method="post" action="/language">
+                            <input type="image" name="Language" value="Bulgarian" id="BGLanguage" src="/icons/Bulgaria-Flag.png" alt="submit">
+                            <input type="image" name="Language" value="English" id="ENLanguage" src="/icons/UK-flag-icon.png" alt="submit">
+                        </form>
+                        <a href="article/myArticles">Моите обяви</a>
+                        <a href="#">Добавяна на Администратори</a>
+                        <a href="#">Изтриване на акаунт</a>
+                        <a href="/user/logout">Изход</a>
+                    {{/if}}
+                    {{#unless UAK}}
+                        <form method="post" action="/language">
+                            <input type="image" name="Language" value="Bulgarian" id="BGLanguage" src="/icons/Bulgaria-Flag.png" alt="submit">
+                            <input type="image" name="Language" value="English" id="ENLanguage" src="/icons/UK-flag-icon.png" alt="submit">
+                        </form>
+                        <a href="article/myArticles">Моите обяви</a>
+                        <a href="/user/logout">Изход</a>
+                    {{/unless}}
+                </div>
+            </div>
+            <div id="welcome">Привет (<span style="text-transform: capitalize; font-weight: bold">{{user.fullName}}</span>), прочети за нас!</div>
+        {{/if}}
+        {{#unless user}}
+            <div onclick="location.href='/user/login'" class="userMenu"><span class="joinLink">Join</span></div>
+        {{/unless}}
+        <!-- Menu -->
+
+        <div id="menu">
+            <div id="leftSideOfMenu">
+                <a href="/article/create" id="postLink">Публикувай обява</a>
+            </div>
+            <form method="post" action="/search">
+                <div id="searchBar">
+                    <input id="searchField" type="text" name="SearchInput" placeholder="Търся..." required>
+                    <button type="submit" id="searchButton"></button>
+                </div>
+            </form>
+        </div>
+
+    </header>
+
+    <!-- Page Content -->
+
+    {{#if error}}
+        <h2>{{error}}</h2>
+    {{/if}}
+
+    <div id="pageContent">
+        {{{body}}}
+    </div>
+</div>
+
+<footer>
+    <div class="container modal-footer">
+        <a>Terms and Conditions</a> //TODO<br />
+        <a>Contact</a> //TODO<br />
+        <p>&copy; 2016 - Dream Team Foundation</p>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<form id="loginForm" method="post" action="/user/login">
+    <p id="signInText">Sign in</p>
+
+    <div id="emailDiv">
+        <label for="logEmail">E-mail</label><br />
+    <input type="email" id="inputEmail" placeholder="E-mail" name="email" value="k@k.k"> {{! //remove value="k@k.k" }}
+    </div>
+
+    <div id="passDiv">
+        <label for="password">Password</label><br />
+        <input type="password" id="inputPassword" placeholder="Password" name="password" value="k"> {{! //remove value="l" }}
+    </div>
+
+    <div>
+        <button type="submit" id="signInButton">Sign In</button>
+    </div>
+
+    <div id="goToRegistrationDiv">
+        <div id="newUserText"><span style="background-color: white; padding: 5px">Don't have an account?</span></div>
+        <input id="goToRegistration" value="Create your DtS account" type="button" onclick="location.href='/user/register/'">
+    </div>
+</form>

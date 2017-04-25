@@ -10,6 +10,7 @@ let userSchema = mongoose.Schema( {
         articles: [{ type: ObjectId, ref: 'Article' }],
         roles: [{ type: ObjectId, ref: 'Role' }],
         salt: {type: String, required: true},
+        language: {type: String}
     }
 );
 
@@ -22,13 +23,17 @@ userSchema.method ({
     },
 
     isAuthor: function (article) {
-        if (!article) {
+        if (!article || !article.author) {
             return false;
         }
 
-        let id = article.author;
+        let id = article.author.id;
 
-        return this.id == article.author;
+        if (Buffer.isBuffer(article.author.id)) {
+            id = article.author;
+        }
+
+        return this.id == id;
     },
 
     isInRole: function (roleName) {

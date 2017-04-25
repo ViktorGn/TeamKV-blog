@@ -1,0 +1,15 @@
+<!-- Div Block containing the offers -->
+{{#each articles}}
+<div class="ads">
+    <article onclick="location.href='/article/details/{{id}}'">
+
+        <img src="{{picturePath}}" id="adPicture" alt="Image">
+
+        <div id="adTitle">
+            <h4>{{title}}</h4>
+        </div>
+    </article>
+</div>
+{{/each}}
+<!-- End of the Div Block containing the offers -->
+        

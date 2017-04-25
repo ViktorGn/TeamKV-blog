@@ -1,0 +1,28 @@
+<form id="loginForm" method="post" action="/user/register">
+
+    <p id="signInText">Регистрация</p>
+
+    <div id="fullNameDiv">
+        <label for="inputFullName">Твоето име</label><br />
+        <input type="text" id="inputFullName" placeholder="Име" required name="fullName" value={{fullName}}>
+    </div>
+
+    <div id="emailDiv">
+        <label for="inputEmail">Имейл</label><br />
+        <input type="email" id="inputEmail" placeholder="Имейл" name="email" required value={{email}} >
+    </div>
+
+    <div id="passDiv">
+        <label for="inputPassword">Парола</label><br />
+        <input type="password" id="inputPassword" placeholder="Парола" name="password">
+    </div>
+
+    <div id="passDiv">
+        <label for="inputPassword">Повтори паролата</label><br />
+        <input type="password" id="inputPassword" placeholder="Повтори паролата" required name="repeatedPassword">
+    </div>
+
+    <div>
+        <button type="submit" id="signInButton">Регистрация</button>
+    </div>
+</form>

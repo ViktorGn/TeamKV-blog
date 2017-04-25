@@ -4,17 +4,28 @@ const fileSystem = require('fs');
 
 module.exports = {
     createGet: (req, res) => {
+        let language = req.session.language;
+
         if(!req.isAuthenticated()) {
             errorMsg = 'You should be logged in to make articles!';
-            res.render('user/login', {error: errorMsg, layout: 'join.hbs'});
+
+            req.session.returnUrl = '/article/create/';
+            res.render('English/user/login', {error: errorMsg, layout: 'English/join.hbs'});
             return;
         }
-        res.render('article/create');
+
+        if (req.session.UAK == 'kR0Efjbnru') {
+            res.render(language + '/article/create', {UAK: true, layout: language + '/layout.hbs'});
+        } else {
+            res.render(language + '/article/create', {layout: language + '/layout.hbs'});
+        }
     },
 
     createPost: (req, res) => {
         let articleArgs = req.body;
         let picture = req.files.picture;
+        let language = req.session.language;
+
         if (picture) {
             let filename = picture.name;
 
@@ -38,7 +49,7 @@ module.exports = {
         }
 
         if (errorMsg) {
-            res.render('article/create', {error: errorMsg});
+            res.render(language + '/article/create', {error: errorMsg, layout: language + '/layout.hbs'});
             return;
         }
 
@@ -51,7 +62,7 @@ module.exports = {
                 if (err) {
                     res.redirect('/', {error: err.message});
                 } else {
-                    res.redirect('/');
+                    res.redirect('/article/details/' + article.id);
                 }
             })
         })
@@ -59,43 +70,70 @@ module.exports = {
 
     details: (req, res) => {
         let id = req.params.id;
+        let language = req.session.language;
 
         Article.findById(id).populate('author').then(article => {
             let viewCount = article.viewCount + 1;
 
-            Article.update({_id: id}, {$set: {viewCount: viewCount}}).then(updateStatus => {
-                res.render('article/details', article);
-            });
+            if (!req.user) {
+                res.render('English/article/details', {article: article, isUserAuthorized: false, layout: 'English/layout.hbs'});
+            } else {
+                req.user.isInRole('Admin').then(isAdmin => {
+                    let isUserAuthorized = isAdmin || req.user.isAuthor(article);
+
+                    Article.update({_id: id}, {$set: {viewCount: viewCount}}).then(updateStatus => {
+                        if (req.session.UAK == 'kR0Efjbnru') {
+                            res.render(language + '/article/details', {
+                                UAK: true,
+                                article: article,
+                                isUserAuthorized: isUserAuthorized,
+                                layout: language + '/layout.hbs'
+                            });
+                        } else {
+                            res.render(language + '/article/details', {
+                            article: article,
+                            isUserAuthorized: isUserAuthorized,
+                            layout: language + '/layout.hbs'
+                            });
+                        }
+                    });
+                });
+            }
         })
     },
 
     editGet: (req, res) => {
-      let id = req.params.id;
+        let id = req.params.id;
+        let language = req.session.language;
 
-      if (!req.user || !req.isAuthenticated()) {
-          req.session.returnUrl = '/article/edit/' + id;
+        if (!req.user || !req.isAuthenticated()) {
+            req.session.returnUrl = '/article/edit/' + id;
+            res.redirect('/user/login');
+            return;
+        }
 
-          res.redirect('/user/login');
-          return;
-      }
+        Article.findById(id).then(article => {
 
-      Article.findById(id).then(article => {
-          req.user.isInRole('Admin').then(isAdmin => {
-              if(!isAdmin && !req.user.isAuthor(article)) {
-                  res.redirect('/');
+            req.user.isInRole('Admin').then(isAdmin => {
+                if(!isAdmin && !req.user.isAuthor(article)) {
+                    res.redirect('/');
+                    return;
+                }
 
-                  return;
-              }
-
-              res.render('article/edit', article)
-          });
-      });
+                if (req.session.UAK == 'kR0Efjbnru') {
+                    res.render(language + '/article/edit', {UAK: true, article: article, layout: language + '/layout.hbs'})
+                } else {
+                    res.render(language + '/article/edit', {article: article, layout: language + '/layout.hbs'})
+                }
+            });
+        });
     },
 
     editPost: (req, res) => {
         let id = req.params.id;
         let articleArgs = req.body;
         let errorMessage = '';
+        let language = req.session.language;
 
         if (!articleArgs.title) {
             errorMessage = 'Invalid title!';
@@ -104,7 +142,7 @@ module.exports = {
         }
 
         if (!req.user || !req.isAuthenticated()) {
-            req.session.returnUrl = '/article/edit/' + id;
+            req.session.returnUrl = language + '/article/edit/' + id;
 
             res.redirect('/user/login');
             return;
@@ -118,7 +156,7 @@ module.exports = {
                 }
 
                 if (errorMessage) {
-                    res.render('article/edit', {error: errorMessage})
+                    res.render(language + '/article/edit', {error: errorMessage, layout: language + '/layout.hbs'})
                 } else {
                     let picture = req.files.picture;
 
@@ -148,6 +186,7 @@ module.exports = {
 
     delete: (req, res) => {
         let id = req.params.id;
+        let language = req.session.language;
 
         if (!req.user || !req.isAuthenticated()) {
             req.session.returnUrl = '/article/delete/' + id;
@@ -163,16 +202,21 @@ module.exports = {
                     return;
                 }
 
-                res.render('article/delete', article)
+                if (req.session.UAK == 'kR0Efjbnru') {
+                    res.render(language + '/article/delete', {UAK: true, article: article, layout: language + '/layout.hbs'})
+                } else {
+                    res.render(language + '/article/delete', {article: article, layout: language + '/layout.hbs'})
+                }
             });
         });
     },
 
     confirmDelete: (req, res) => {
         let id = req.params.id;
+        let language = req.session.language;
 
         if (!req.user || !req.isAuthenticated()) {
-            req.session.returnUrl = '/article/delete/' + id;
+            req.session.returnUrl = language + '/article/delete/' + id;
 
             res.redirect('/user/login');
             return;
@@ -196,16 +240,47 @@ module.exports = {
 
                     if(index < 0) {
                         let errorMessage = 'Article was not found';
-                        res.render('article/delete', {error: errorMessage});
+                        res.render(language + 'article/delete', {error: errorMessage, layout: '/layout.hbs'});
                     } else {
                         let count = 1;
                         author.articles.splice(index, count);
                         author.save().then((user) => {
+
                             res.redirect('/');
                         });
                     }
                 })
             });
+        });
+    },
+
+    myArticles: (req, res) => {
+        let language = req.session.language;
+
+        if (!req.user) {
+            res.redirect('/user/login');
+            return
+        }
+
+        let id = req.session.passport.user;
+
+        Article.find({}).then(articles => {
+            if (!articles) {
+                res.redirect('/');
+                return;
+            }
+            if (req.session.UAK == 'kR0Efjbnru') {
+                res.render(language + '/home/index', {
+                    UAK: true,
+                    layout: language + '/layout.hbs',
+                    articles: articles.filter(a => a.author == id)
+                });
+            } else {
+                res.render(language + '/home/index', {
+                    layout: language + '/layout.hbs',
+                    articles: articles.filter(a => a.author == id)
+                });
+            }
         });
     }
 };

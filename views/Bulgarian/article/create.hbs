@@ -1,0 +1,31 @@
+<form class="form-horizontal" enctype="multipart/form-data" method="POST" action="/article/create">
+    <fieldset>
+        <div class="form-group" style="margin-top: 30px;">
+            <label class="col-sm-4 control-label" style="width: 15%" for="articleTitle">Заглавие</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="articleTitle" placeholder="Заглавие на обявата" name="title" required maxlength="50">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" style="width: 15%" for="articleContent">Описание</label>
+            <div class="col-sm-6">
+                <textarea class="form-control" style="resize: none" id="articleContent" rows="10" name="content" required></textarea>
+            </div>
+                </div>
+        <div class="form-group text-left">
+            <label class="col-sm-4 control-label" style="width: 15%" for="articleContent"></label>
+            <div class="col-sm-6">
+                <input class="form-control" style="width: 250px;" id="image" type="file" name="picture">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-9">
+
+                <button type="reset" onclick="location.href='/'" class="btn btn-default">Назад</button>
+
+                <button type="submit" class="btn btn-success" style="margin-left: 10px">Публикувай</button>
+            </div>
+        </div>
+    </fieldset>
+</form>

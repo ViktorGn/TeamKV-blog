@@ -1,0 +1,27 @@
+<article id="detailsArticle">
+
+    <small class="author pull-right" style="margin-right: 5px">
+        Ad by {{article.author.fullName}}, viewed {{article.viewCount}} times.
+    </small>
+
+    <img src="{{article.picturePath}}" id="detailsPicture" alt="Image">
+
+        <div id="detailsTitle">
+            <h2>{{article.title}}</h2>
+        </div>
+
+
+        <div id="detailsContent">
+            {{article.content}}
+        </div>
+
+    <footer>
+        <div id="detailsButtons">
+            <a class="btn btn-default btn-xs" href="/">Back &raquo;</a>
+            {{#if isUserAuthorized}}
+            <a class="btn btn-success btn-xs" href="/article/edit/{{article.id}}">Edit &raquo;</a>
+            <a class="btn btn-danger btn-xs" href="/article/delete/{{article.id}}">Delete &raquo;</a>
+            {{/if}}
+        </div>
+    </footer>
+</article>
