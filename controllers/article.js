@@ -1,8 +1,40 @@
 const Article = require('mongoose').model('Article');
-const PersistentStore = require('mongoose').model('PersistentStore');
+//const PersistentStore = require('mongoose').model('PersistentStore');
 const fileSystem = require('fs');
 var uuid = require('uuid');
 
+//Mail
+//run command
+// npm install nodemailer --savein
+// from/in the directory ...\TeamKV-blog
+const nodemailer = require('nodemailer');
+
+//Enable IMAP in Gmail //https://support.google.com/a/answer/105694?hl=en
+//Enable less secure app access ! https://myaccount.google.com/lesssecureapps
+//Creating a transport object
+var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'XXXX@gmail.com', // Your email id XXXX
+        pass: 'YYYY' // Your password YYYY
+    }
+});
+
+//Create a simple JSON object with the necessary values for send­ing the email.
+var mailOptions = {
+    from: 'XXXX@gmail.com', // sender address
+    to: 'target mail', // list of receivers
+    subject:  uuid.v4(), // Subject line
+    text: 'Hello world ! from Node.js'//plaintext body
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+        console.log(error);
+    }else{
+        console.log('Message sent !'+info.response);
+    };
+});
 
 module.exports = {
     createGet: (req, res) => {
