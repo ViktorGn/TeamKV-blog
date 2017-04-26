@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="280306d9-ed72-4c6b-9064-37a27eeec051" name="Default" comment="File upload - Generating unique file name for the attached files.">
+    <list default="true" id="280306d9-ed72-4c6b-9064-37a27eeec051" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SoftUniBlog.iws" />
@@ -571,7 +571,7 @@
       <workItem from="1493187489925" duration="43000" />
       <workItem from="1493187551987" duration="50000" />
       <workItem from="1493187637486" duration="219000" />
-      <workItem from="1493187977422" duration="89000" />
+      <workItem from="1493187977422" duration="159000" />
     </task>
     <task id="LOCAL-00001" summary="Comments to the code. Testing Commit from WebStorm.">
       <created>1492897659919</created>
@@ -629,11 +629,18 @@
       <option name="project" value="LOCAL" />
       <updated>1493187839751</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="File upload - Generating unique file name for the attached files.">
+      <created>1493188084914</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1493188084914</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="263703000" />
+    <option name="totallyTimeSpent" value="263773000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1934" height="1042" extended-state="0" />
