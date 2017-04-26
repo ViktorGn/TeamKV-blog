@@ -4,10 +4,12 @@ const encryption = require('./../utilities/encryption');
 
 module.exports = {
     registerGet: (req, res) => {
-        req.session.language = 'English';
+        if (!req.session.language) {
+            req.session.language = 'English';
+        }
         let language = req.session.language;
 
-        res.render('English/user/register',  {layout: 'English/join.hbs'});
+        res.render(language + '/user/register',  {layout: language + '/join.hbs'});
     },
 
     registerPost:(req, res) => {
@@ -22,9 +24,14 @@ module.exports = {
                 errorMsg = 'Passwords do not match!'
             }
 
+            if (!req.session.language) {
+                req.session.language = 'English';
+            }
+            let language = req.session.language;
+
             if (errorMsg) {
                 registerArgs.error = errorMsg;
-                res.render('English/user/register', {error: errorMsg, layout: 'English/join.hbs'})
+                res.render(language + '/user/register', {error: errorMsg, layout: language + '/join.hbs'})
             } else {
                 let salt = encryption.generateSalt();
                 let passwordHash = encryption.hashPassword(registerArgs.password, salt);
@@ -39,7 +46,7 @@ module.exports = {
                         fullName: registerArgs.fullName,
                         salt: salt,
                         roles: roles,
-                        language: 'English'
+                        language: language
                     };
 
                     User.create(userObject).then(user => {
@@ -51,7 +58,7 @@ module.exports = {
                                req.logIn(user, (err) => {
                                    if (err) {
                                        registerArgs.error = err.message;
-                                       res.render('English/user/register', {error: err.message, layout: 'English/join.hbs'});
+                                       res.render(language + '/user/register', {error: err.message, layout: language + '/join.hbs'});
                                        return;
                                    }
                                    res.redirect('/');
@@ -65,7 +72,12 @@ module.exports = {
     },
 
     loginGet: (req, res) => {
-        res.render('English/user/login', {layout: 'English/join.hbs'});
+        if (!req.session.language) {
+            req.session.language = 'English';
+        }
+        let language = req.session.language;
+
+        res.render(language + '/user/login', {layout: language + '/join.hbs'});
     },
 
     loginPost: (req, res) => {
@@ -79,9 +91,14 @@ module.exports = {
                 return;
             }
 
+            if (!req.session.language) {
+                req.session.language = 'English';
+            }
+            let language = req.session.language;
+
             req.logIn(user, (err) => {
                 if (err) {
-                    res.render('English/user/login', {error: err.message, layout: 'English/join.hbs'});
+                    res.render(language + '/user/login', {error: err.message, layout: language + '/join.hbs'});
                     return;
                 }
 
@@ -103,6 +120,8 @@ module.exports = {
     },
 
     logout: (req, res) => {
+        delete req.session.UAK;
+        delete req.session.passport;
         req.logOut();
         res.redirect('/');
     }

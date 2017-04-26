@@ -1,7 +1,11 @@
 <article id="detailsArticle">
+    <div class="pull-left" style="position: absolute; margin-left: 20px; margin-top: -5px;">
+        Category - <span style="font-weight: bold">{{category}}</span>
+    </div>
 
     <small class="author pull-right" style="margin-right: 5px">
-        Ad by {{article.author.fullName}}, viewed {{article.viewCount}} times.
+        Ad by {{article.author.fullName}}, viewed {{article.viewCount}} times.<br />
+        ID: {{article.id}}
     </small>
 
     <img src="{{article.picturePath}}" id="detailsPicture" alt="Image">

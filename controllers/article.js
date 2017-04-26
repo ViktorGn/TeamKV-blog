@@ -6,13 +6,16 @@ var uuid = require('uuid');
 
 module.exports = {
     createGet: (req, res) => {
+        if (!req.session.language) {
+            req.session.language = 'English';
+        }
         let language = req.session.language;
 
         if(!req.isAuthenticated()) {
             errorMsg = 'You should be logged in to make articles!';
 
             req.session.returnUrl = '/article/create/';
-            res.render('English/user/login', {error: errorMsg, layout: 'English/join.hbs'});
+            res.render(language + '/user/login', {error: errorMsg, layout: language + '/join.hbs'});
             return;
         }
 
@@ -26,6 +29,10 @@ module.exports = {
     createPost: (req, res) => {
         let articleArgs = req.body;
         let picture = req.files.picture;
+
+        if (!req.session.language) {
+            req.session.language = 'English';
+        }
         let language = req.session.language;
 
         if (picture) {
@@ -35,7 +42,7 @@ module.exports = {
             articleArgs.picturePath = '/pictures/' + filename;
                 picture.mv('./public/pictures/' + filename, err => {
                 if (err) {
-                    console.log(err.message);
+                    consol.e.log(err.message);
                 }
             });
         } else {
@@ -57,7 +64,6 @@ module.exports = {
         }
 
         articleArgs.author = req.user.id;
- //       console.log(PersistentStore.articleAutoCount);
 
         Article.create(articleArgs).then(article => {
             req.user.articles.push(article.id);
@@ -73,32 +79,40 @@ module.exports = {
 
     details: (req, res) => {
         let id = req.params.id;
+        let UAK = false;
         let language = req.session.language;
+
+        if (req.session.UAK == 'kR0Efjbnru') {
+            UAK = true;
+        }
+
+        if (!req.session.language) {
+            req.session.language = 'English';
+        }
 
         Article.findById(id).populate('author').then(article => {
             let viewCount = article.viewCount + 1;
+            let category = article.category;
 
             if (!req.user) {
-                res.render('English/article/details', {article: article, isUserAuthorized: false, layout: 'English/layout.hbs'});
+                res.render(language + '/article/details', {
+                    article: article,
+                    category: category,
+                    isUserAuthorized: false,
+                    layout: language + '/layout.hbs'
+                });
             } else {
                 req.user.isInRole('Admin').then(isAdmin => {
                     let isUserAuthorized = isAdmin || req.user.isAuthor(article);
 
                     Article.update({_id: id}, {$set: {viewCount: viewCount}}).then(updateStatus => {
-                        if (req.session.UAK == 'kR0Efjbnru') {
-                            res.render(language + '/article/details', {
-                                UAK: true,
-                                article: article,
-                                isUserAuthorized: isUserAuthorized,
-                                layout: language + '/layout.hbs'
-                            });
-                        } else {
-                            res.render(language + '/article/details', {
+                        res.render(language + '/article/details', {
+                            UAK: UAK,
                             article: article,
+                            category: category,
                             isUserAuthorized: isUserAuthorized,
                             layout: language + '/layout.hbs'
-                            });
-                        }
+                        });
                     });
                 });
             }
@@ -107,6 +121,9 @@ module.exports = {
 
     editGet: (req, res) => {
         let id = req.params.id;
+        if (!req.session.language) {
+            req.session.language = 'English';
+        }
         let language = req.session.language;
 
         if (!req.user || !req.isAuthenticated()) {
@@ -136,6 +153,9 @@ module.exports = {
         let id = req.params.id;
         let articleArgs = req.body;
         let errorMessage = '';
+        if (!req.session.language) {
+            req.session.language = 'English';
+        }
         let language = req.session.language;
 
         if (!articleArgs.title) {
@@ -189,6 +209,9 @@ module.exports = {
 
     delete: (req, res) => {
         let id = req.params.id;
+        if (!req.session.language) {
+            req.session.language = 'English';
+        }
         let language = req.session.language;
 
         if (!req.user || !req.isAuthenticated()) {
@@ -216,10 +239,13 @@ module.exports = {
 
     confirmDelete: (req, res) => {
         let id = req.params.id;
+        if (!req.session.language) {
+            req.session.language = 'English';
+        }
         let language = req.session.language;
 
         if (!req.user || !req.isAuthenticated()) {
-            req.session.returnUrl = language + '/article/delete/' + id;
+            req.session.returnUrl = '/article/delete/' + id;
 
             res.redirect('/user/login');
             return;
@@ -243,7 +269,7 @@ module.exports = {
 
                     if(index < 0) {
                         let errorMessage = 'Article was not found';
-                        res.render(language + 'article/delete', {error: errorMessage, layout: '/layout.hbs'});
+                        res.render(language + '/article/delete', {error: errorMessage, layout: '/layout.hbs'});
                     } else {
                         let count = 1;
                         author.articles.splice(index, count);
@@ -258,11 +284,19 @@ module.exports = {
     },
 
     myArticles: (req, res) => {
+        if (!req.session.language) {
+            req.session.language = 'English';
+        }
         let language = req.session.language;
 
         if (!req.user) {
             res.redirect('/user/login');
             return
+        }
+
+        let UAK = false;
+        if (req.session.UAK == 'kR0Efjbnru') {
+            UAK = true;
         }
 
         let id = req.session.passport.user;
@@ -272,18 +306,12 @@ module.exports = {
                 res.redirect('/');
                 return;
             }
-            if (req.session.UAK == 'kR0Efjbnru') {
-                res.render(language + '/home/index', {
-                    UAK: true,
-                    layout: language + '/layout.hbs',
-                    articles: articles.filter(a => a.author == id)
-                });
-            } else {
-                res.render(language + '/home/index', {
-                    layout: language + '/layout.hbs',
-                    articles: articles.filter(a => a.author == id)
-                });
-            }
+
+            res.render(language + '/home/index', {
+                UAK: UAK,
+                layout: language + '/layout.hbs',
+                articles: articles.filter(a => a.author == id)
+            });
         });
     }
 };

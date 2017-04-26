@@ -13,6 +13,10 @@
 <!-- MAIN CONTENT DIV -->
 <div class="mainCont" style="margin-top: -70px">
     <header>
+        <form method="post" action="/language">
+            <input type="image" name="Language" value="Bulgarian" id="BGLanguage" src="/icons/Bulgaria-Flag.png" alt="submit">
+            <input type="image" name="Language" value="English" id="ENLanguage" src="/icons/UK-flag-icon.png" alt="submit">
+        </form>
 
         <!-- LOGO -->
 
@@ -26,20 +30,12 @@
                 <button onclick="myFunction()" class="dropbtn">Account Options</button>
                 <div id="myDropdown" class="dropdown-content">
                     {{#if UAK}}
-                        <form method="post" action="/language">
-                            <input type="image" name="Language" value="Bulgarian" id="BGLanguage" src="/icons/Bulgaria-Flag.png" alt="submit">
-                            <input type="image" name="Language" value="English" id="ENLanguage" src="/icons/UK-flag-icon.png" alt="submit">
-                        </form>
                         <a href="/article/myArticles">My Articles</a>
                         <a href="#">Add Admins</a>
                         <a href="#">Remove User</a>
                         <a href="/user/logout">Logout</a>
                     {{/if}}
                     {{#unless UAK}}
-                        <form method="post" action="/language">
-                            <input type="image" name="Language" value="Bulgarian" id="BGLanguage" src="/icons/Bulgaria-Flag.png" alt="submit">
-                            <input type="image" name="Language" value="English" id="ENLanguage" src="/icons/UK-flag-icon.png" alt="submit">
-                        </form>
                         <a href="/article/myArticles">My Articles</a>
                         <a href="/user/logout">Logout</a>
                     {{/unless}}
@@ -73,6 +69,7 @@
     {{/if}}
 
     <div id="pageContent">
+        {{categories}}
         {{{body}}}
     </div>
 </div>

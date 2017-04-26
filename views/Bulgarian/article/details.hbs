@@ -1,7 +1,11 @@
 <article id="detailsArticle">
+    <div class="pull-left" style="position: absolute; margin-left: 20px; margin-top: -5px;">
+        Категория - <span style="font-weight: bold">{{category}}</span>
+    </div>
 
     <small class="author pull-right" style="margin-right: 5px">
-        Публикувана от {{article.author.fullName}}, посетена {{article.viewCount}} пъти.
+        Публикувана от {{article.author.fullName}}, посетена {{article.viewCount}} пъти.<br />
+        ID: {{article.id}}
     </small>
 
     <img src="{{article.picturePath}}" id="detailsPicture" alt="Image">

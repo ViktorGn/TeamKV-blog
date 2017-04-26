@@ -4,33 +4,43 @@ const User = mongoose.model('User');
 
 module.exports = {
     index: (req, res) => {
-      Article.find({}).limit(18).populate('author').then(articles => {
+        let category = req.body.Category;
 
-          if(req.user) {
-              let id = req.session.passport.user;
+        Article.find({}).populate('author').then(articles => {
+            if (category) {
+                articles = articles.filter(a => a.category == category);
+            }
+            console.log(category)
 
-              User.findOne({_id: id}).then(user => {
+            if(req.user) {
+                let id = req.session.passport.user;
+                User.findOne({_id: id}).then(user => {
 
-                  req.session.language = user.language;
-                  let language = req.session.language;
+                    req.session.language = user.language;
+                    let language = req.session.language;
+                    req.user.isInRole('Admin').then(isAdmin => {
+                        if (isAdmin) {
+                            req.session.UAK = 'kR0Efjbnru'; // Unique Admin Key -> kR0Efjbnru
+                            res.render(language + '/home/index', {
+                                layout: language + '/layout',
+                                articles: articles, UAK: true,
+                                isAdmin: isAdmin});
+                        } else {
+                            delete req.session.UAK;
+                            res.render(language + '/home/index', {layout: language + '/layout' ,articles: articles})
+                        }
+                    });
+                });
+            } else {
+                if (!req.session.language) {
+                    req.session.language = 'English';
+                }
+                let language = req.session.language;
 
-                  req.user.isInRole('Admin').then(isAdmin => {
-
-                      if (isAdmin) {
-                          req.session.UAK = 'kR0Efjbnru'; // Unique Admin Key -> kR0Efjbnru
-                          res.render(language + '/home/index', {layout: language + '/layout' ,articles: articles, UAK: true, isAdmin: isAdmin});
-                      } else {
-                          delete req.session.UAK;
-                          res.render(language + '/home/index', {layout: language + '/layout' ,articles: articles})
-                      }
-                  });
-              });
-          } else {
-              req.session.language = 'English';
-              res.render('English/home/index', {layout: 'English/layout' ,articles: articles})
-          }
-      })
-  },
+                res.render(language + '/home/index', {layout: language + '/layout', articles: articles});
+            }
+        })
+    },
 
     fullTextSearch: (req, res) => {
         let searchText = req.body.SearchInput;
@@ -45,20 +55,22 @@ module.exports = {
                     res.render(language + '/home/index', {layout: language + '/layout', articles: articles});
                 }
             })
+        } else {
+            res.redirect('/');
         }
     },
 
     language: (req, res) => {
-        let language = req.body.Language;
+        let selectedLang = req.body.Language;
 
-        if (req.session.passport.user) {
+        if (req.session.passport) {
             let id = req.session.passport.user;
 
-            User.update({_id: id}, {$set: {language: language}}).then(user => {
+            User.update({_id: id}, {$set: {language: selectedLang}}).then(user => {
                 res.redirect('/');
             });
         } else {
-            req.session.language = language;
+            req.session.language = selectedLang;
             res.redirect('/');
         }
     }

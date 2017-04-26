@@ -20,6 +20,8 @@ body {
     height: 90%;
     min-height: 300px;
     padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .ads {
@@ -72,6 +74,7 @@ body {
 
 #detailsTitle {
     text-align: center;
+    margin-top: 50px;
 }
 
 #detailsContent {
@@ -99,6 +102,51 @@ body {
     display: inline-block;
     background-color: #ffc2b1;
     border-radius: 10px;
+}
+
+.allCategories {
+    margin-bottom: 5px;
+}
+
+.categoryOptionsIcons {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.categoryOptions {
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 20px;
+    margin-right: 50px;
+    border: 1px none rgba(0, 0, 0, .2);
+    padding: 12px;
+    color: black;
+    transition: 0.5s;
+}
+
+.categoryOptions:hover {
+    text-decoration: none;
+    color: black;
+    opacity: 0.2;
+    transition: 0.5s;
+}
+
+.categoryOptions:active {
+    transition: 0s;
+    box-shadow: 0 0 5px black;
+}
+
+.allCategories:after {
+    content: "";
+    position: absolute;
+    width: 50%;
+    margin-top: 128px;
+    left: 25%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.bottomMargin {
+    margin-bottom: 10px;
 }
 
 /* LogIn, Register, Profile*/
@@ -338,9 +386,10 @@ body {
     height: 30px;
     cursor: pointer;
     margin: 0 auto;
+    position: absolute;
 }
 #BGLanguage {
-    margin-left: 5px;
+    margin-left: 40px;
 }
 
 button:focus {

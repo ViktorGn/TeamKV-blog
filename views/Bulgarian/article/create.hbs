@@ -5,7 +5,20 @@
             <div class="col-sm-4">
                 <input type="text" class="form-control" id="articleTitle" placeholder="Заглавие на обявата" name="title" required maxlength="50">
             </div>
+            <label class="col-sm-4 control-label" style="width: 15%" for="articleCategory">Категория</label>
+            <div class="col-sm-4">
+                <select class="form-control" id="articleCategory" name="category" required>
+                    <option value="" disabled selected>Избери Категория</option>
+                    <option value="Vehicles">Автомобили и части</option>
+                    <option value="Electronics">Електроника</option>
+                    <option value="Houses">Недвижими имоти</option>
+                    <option value="HomeHobby">Дом и хоби</option>
+                    <option value="Clothes">Дрехи</option>
+                    <option value="Jewelry">Бижута</option>
+                </select>
+            </div>
         </div>
+
         <div class="form-group">
             <label class="col-sm-4 control-label" style="width: 15%" for="articleContent">Описание</label>
             <div class="col-sm-6">

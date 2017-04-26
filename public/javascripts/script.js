@@ -14,4 +14,8 @@ window.onclick = function(event) {
             }
         }
     }
+};
+
+function categoriesForm() {
+    document.getElementById("categoriesForm").submit();
 }

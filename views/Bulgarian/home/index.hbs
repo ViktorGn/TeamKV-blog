@@ -1,4 +1,22 @@
 <!-- Div Block containing the offers -->
+<form method="post" action="/home" id="categoriesForm">
+    <div class="allCategories">
+        <div class="col-sm-4 col-md-4 left bottomMargin">
+            <button type="submit" class="categoryOptions" name="Category" value="Vehicles"><img src="/icons/car-icon.png" class="categoryOptionsIcons">Коли и части</button>
+            <button type="submit" class="categoryOptions" name="Category" value="Houses"><img src="/icons/home-icon.png" class="categoryOptionsIcons">Недвижими имоти</button>
+        </div>
+
+        <div class="col-sm-4 col-md-4 left bottomMargin">
+            <button type="submit" class="categoryOptions" name="Category" value="Clothes"><img src="/icons/clothes-icon.png" class="categoryOptionsIcons">Дрехи</button>
+            <button type="submit" class="categoryOptions" name="Category" value="Electronics"><img src="/icons/electronics-icon.png" class="categoryOptionsIcons">Електроника</button>
+        </div>
+
+        <div class="col-sm-4 col-md-4 left bottomMargin">
+            <button type="submit" class="categoryOptions" name="Category" value="HomeHobby"><img src="/icons/furniture-icon.png" class="categoryOptionsIcons">Дом и хоби</button>
+            <button type="submit" class="categoryOptions" name="Category" value="Jewelry"><img src="/icons/jewelry-icon.png" class="categoryOptionsIcons">Бижута</button>
+        </div>
+    </div>
+</form>
 {{#each articles}}
 <div class="ads">
     <article onclick="location.href='/article/details/{{id}}'">

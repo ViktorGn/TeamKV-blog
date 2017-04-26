@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Магазин за мечти</title>
+    <title>Магазинът на мечтите!</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/DSStyle.css' />
     <script src="/javascripts/jquery-1.10.2.js"></script>
@@ -13,6 +13,10 @@
 <!-- MAIN CONTENT DIV -->
 <div class="mainCont" style="margin-top: -70px">
     <header>
+        <form method="post" action="/language">
+            <input type="image" name="Language" value="Bulgarian" id="BGLanguage" src="/icons/Bulgaria-Flag.png" alt="submit">
+            <input type="image" name="Language" value="English" id="ENLanguage" src="/icons/UK-flag-icon.png" alt="submit">
+        </form>
 
         <!-- LOGO -->
 
@@ -27,20 +31,12 @@
                 <button onclick="myFunction()" class="dropbtn">Моят профил</button>
                 <div id="myDropdown" class="dropdown-content">
                     {{#if UAK}}
-                        <form method="post" action="/language">
-                            <input type="image" name="Language" value="Bulgarian" id="BGLanguage" src="/icons/Bulgaria-Flag.png" alt="submit">
-                            <input type="image" name="Language" value="English" id="ENLanguage" src="/icons/UK-flag-icon.png" alt="submit">
-                        </form>
                         <a href="article/myArticles">Моите обяви</a>
                         <a href="#">Добавяна на Администратори</a>
                         <a href="#">Изтриване на акаунт</a>
                         <a href="/user/logout">Изход</a>
                     {{/if}}
                     {{#unless UAK}}
-                        <form method="post" action="/language">
-                            <input type="image" name="Language" value="Bulgarian" id="BGLanguage" src="/icons/Bulgaria-Flag.png" alt="submit">
-                            <input type="image" name="Language" value="English" id="ENLanguage" src="/icons/UK-flag-icon.png" alt="submit">
-                        </form>
                         <a href="article/myArticles">Моите обяви</a>
                         <a href="/user/logout">Изход</a>
                     {{/unless}}
@@ -49,7 +45,7 @@
             <div id="welcome">Привет (<span style="text-transform: capitalize; font-weight: bold">{{user.fullName}}</span>), прочети за нас!</div>
         {{/if}}
         {{#unless user}}
-            <div onclick="location.href='/user/login'" class="userMenu"><span class="joinLink">Join</span></div>
+            <div onclick="location.href='/user/login'" class="userMenu"><span class="joinLink">Вход</span></div>
         {{/unless}}
         <!-- Menu -->
 
@@ -59,7 +55,7 @@
             </div>
             <form method="post" action="/search">
                 <div id="searchBar">
-                    <input id="searchField" type="text" name="SearchInput" placeholder="Търся..." required>
+                    <input id="searchField" type="text" name="SearchInput" placeholder="Търся...">
                     <button type="submit" id="searchButton"></button>
                 </div>
             </form>

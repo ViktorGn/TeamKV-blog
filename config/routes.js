@@ -4,6 +4,7 @@ const homeController = require('./../controllers/home');
 
 module.exports = (app) => {
     app.get('/', homeController.index);
+    app.post('/home', homeController.index);
     app.post('/search',homeController.fullTextSearch);
     app.post('/language', homeController.language);
 
@@ -27,5 +28,6 @@ module.exports = (app) => {
     app.get('/article/details/:id', articleController.details);
 
     app.get('/article/myArticles', articleController.myArticles);
+
 };
 
