@@ -1,6 +1,8 @@
 const Article = require('mongoose').model('Article');
 const PersistentStore = require('mongoose').model('PersistentStore');
 const fileSystem = require('fs');
+var uuid = require('uuid');
+
 
 module.exports = {
     createGet: (req, res) => {
@@ -27,8 +29,9 @@ module.exports = {
         let language = req.session.language;
 
         if (picture) {
-            let filename = picture.name;
-
+            // get the extension and rename to unique filename
+            pictureFilenameExt=picture.name.split('.').pop();
+            let filename =  uuid.v4() + pictureFilenameExt; /* instead of picture.name */
             articleArgs.picturePath = '/pictures/' + filename;
                 picture.mv('./public/pictures/' + filename, err => {
                 if (err) {
