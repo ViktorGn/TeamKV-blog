@@ -1,0 +1,31 @@
+<form class="form-horizontal" method="POST" action="/message/{{article.id}}">
+    <fieldset class="col-sm-offset-2">
+        <div class="form-group" style="margin-top: 30px;">
+            <label class="col-sm-5 control-label" style="width: 15%" for="articleTitle">Title</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="articleTitle" placeholder="Заглавие на обявата" value="{{article.title}}" name="title" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-5 control-label" style="width: 15%" for="returnEmail">Your E-mail</label>
+            <div class="col-sm-5">
+                <input type="email" class="form-control" id="returnEmail" name="returnEmail" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-5 control-label" style="width: 15%" for="messageContent">Message</label>
+            <div class="col-sm-5">
+                <textarea class="form-control" style="resize: none" id="messageContent" rows="10" name="messageContent" required></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-1 col-sm-offset-2">
+                <button type="submit" class="btn btn-success" style="margin-left: -13px;">
+                    <img src="/icons/message-icon.png" style="width: 30px;margin-right: 15px">Send message</button>
+            </div>
+            <div class="col-sm-1 col-sm-offset-7">
+                <a href="/article/details/{{article.id}}" class="btn btn-default btn-xs" style="margin: 0 0 -90px 60px">Back &raquo;</a>
+            </div>
+        </div>
+    </fieldset>
+</form>

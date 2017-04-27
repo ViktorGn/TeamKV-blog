@@ -1,6 +1,7 @@
 const User = require('mongoose').model('User');
 const Role = require('mongoose').model('Role');
 const encryption = require('./../utilities/encryption');
+const nodemailer = require('nodemailer');
 
 module.exports = {
     registerGet: (req, res) => {
@@ -14,7 +15,6 @@ module.exports = {
 
     registerPost:(req, res) => {
         let registerArgs = req.body;
-        let language = req.session.language;
 
         User.findOne({email: registerArgs.email}).then(user => {
             let errorMsg = '';
@@ -59,12 +59,51 @@ module.exports = {
                                    if (err) {
                                        registerArgs.error = err.message;
                                        res.render(language + '/user/register', {error: err.message, layout: language + '/join.hbs'});
-                                       return;
                                    }
-                                   res.redirect('/');
                                })
                            }
                         });
+
+                        let englishTemplate =
+                            '<div style="font-size: 18px"><p>Welcome <b>' + user.fullName +
+                            '</b>!</p><p><br />We are very happy to see you!</p><p>Stay cool and keep browsing!</p><br /><p>Have a wonderful day!</p><p><a href="http://localhost:3000">Dream Store</a></p><br /></div>';
+                        let bulgarianTemplate =
+                            '<div style="font-size: 18px"><p>Добре дошъл <b>' + user.fullName +
+                            '</b>!</p><p><br />Добре дошъл в нашия магазин!</p><p>Дано намериш всичко желано.</p><br /><p>Приятен ден!</p><p><a href="http://localhost:3000">Dream Store</a></p><br /></div>';
+                        let messageTemplate = englishTemplate;
+
+                        if (language == 'Bulgarian') {
+                            messageTemplate = bulgarianTemplate;
+                        }
+
+                        //Enable IMAP in Gmail //https://support.google.com/a/answer/105694?hl=en
+                        // Enable less secure app access ! https://myaccount.google.com/lesssecureapps
+                        // Creating a transport object
+                        let transporter = nodemailer.createTransport({
+                            service: 'Gmail',
+                            auth: {
+                                user: 'dreamstoreweb@gmail.com', // Your email id XXXX
+                                pass: 'blogblog' // Your password YYYY
+                            }
+                        });
+
+                        //Create a simple JSON object with the necessary values for send­ing the email.
+                        // https://nodemailer.com/message/
+                        let mailOptions = {
+                            to: user.email, //authorEmail, // list of receivers
+                            subject:  'Dream Store', // Subject line
+                            html: messageTemplate
+                        };
+
+                        transporter.sendMail(mailOptions, function(error, info){
+                            if(error){
+                                console.log(error);
+                            }else{
+                                console.log('Message sent !' + info.response);
+                            }
+                        });
+
+                        res.redirect('/');
                     })
                 });
             }

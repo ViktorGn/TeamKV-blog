@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Article = mongoose.model('Article');
 const User = mongoose.model('User');
+const Categories = mongoose.model('Categories');
 
 module.exports = {
     index: (req, res) => {
@@ -10,7 +11,6 @@ module.exports = {
             if (category) {
                 articles = articles.filter(a => a.category == category);
             }
-            console.log(category)
 
             if(req.user) {
                 let id = req.session.passport.user;
@@ -19,16 +19,18 @@ module.exports = {
                     req.session.language = user.language;
                     let language = req.session.language;
                     req.user.isInRole('Admin').then(isAdmin => {
+                        let UAK = false;
                         if (isAdmin) {
                             req.session.UAK = 'kR0Efjbnru'; // Unique Admin Key -> kR0Efjbnru
-                            res.render(language + '/home/index', {
-                                layout: language + '/layout',
-                                articles: articles, UAK: true,
-                                isAdmin: isAdmin});
+                            let UAK = true;
                         } else {
                             delete req.session.UAK;
-                            res.render(language + '/home/index', {layout: language + '/layout' ,articles: articles})
                         }
+                        res.render(language + '/home/index', {
+                            layout: language + '/layout',
+                            articles: articles,
+                            UAK: UAK,
+                        });
                     });
                 });
             } else {

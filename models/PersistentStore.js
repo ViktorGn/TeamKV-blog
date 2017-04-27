@@ -1,7 +1,3 @@
-/**
- * Created by VG on 24-Apr-17.
- */
-//Keep application parameters and configuration
 const mongoose = require('mongoose');
 
 let PersistentStoreSchema = mongoose.Schema({

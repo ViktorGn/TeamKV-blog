@@ -29,5 +29,8 @@ module.exports = (app) => {
 
     app.get('/article/myArticles', articleController.myArticles);
 
+    app.get('/message/:id', articleController.messageGet);
+    app.post('/message/:id', articleController.messagePost);
+
 };
 

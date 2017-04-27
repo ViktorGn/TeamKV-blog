@@ -21,11 +21,14 @@
 
     <footer>
         <div id="detailsButtons">
-            <a class="btn btn-default btn-xs" href="/">Назад &raquo;</a>
             {{#if isUserAuthorized}}
             <a class="btn btn-success btn-xs" href="/article/edit/{{article.id}}">Промени &raquo;</a>
             <a class="btn btn-danger btn-xs" href="/article/delete/{{article.id}}">Изтрий &raquo;</a>
             {{/if}}
+            {{#unless isAuthor}}
+            <a class="btn btn-success btn-xs" href="/message/{{article.id}}">Изпрати съобщение</a>
+            {{/unless}}
+            <a class="btn btn-default btn-xs" href="/">Назад &raquo;</a>
         </div>
     </footer>
 </article>

@@ -1,4 +1,6 @@
 const Article = require('mongoose').model('Article');
+const User = require('mongoose').model('User');
+const Categories = require('mongoose').model('Categories');
 //const PersistentStore = require('mongoose').model('PersistentStore');
 const fileSystem = require('fs');
 var uuid = require('uuid');
@@ -8,33 +10,6 @@ var uuid = require('uuid');
 // npm install nodemailer --savein
 // from/in the directory ...\TeamKV-blog
 const nodemailer = require('nodemailer');
-
-//Enable IMAP in Gmail //https://support.google.com/a/answer/105694?hl=en
-//Enable less secure app access ! https://myaccount.google.com/lesssecureapps
-//Creating a transport object
-var transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-        user: 'XXXX@gmail.com', // Your email id XXXX
-        pass: 'YYYY' // Your password YYYY
-    }
-});
-
-//Create a simple JSON object with the necessary values for send­ing the email.
-var mailOptions = {
-    from: 'XXXX@gmail.com', // sender address
-    to: 'target mail', // list of receivers
-    subject:  uuid.v4(), // Subject line
-    text: 'Hello world ! from Node.js'//plaintext body
-};
-
-transporter.sendMail(mailOptions, function(error, info){
-    if(error){
-        console.log(error);
-    }else{
-        console.log('Message sent !'+info.response);
-    };
-});
 
 module.exports = {
     createGet: (req, res) => {
@@ -124,30 +99,40 @@ module.exports = {
 
         Article.findById(id).populate('author').then(article => {
             let viewCount = article.viewCount + 1;
-            let category = article.category;
+            let articleCategory = article.category;
 
-            if (!req.user) {
-                res.render(language + '/article/details', {
-                    article: article,
-                    category: category,
-                    isUserAuthorized: false,
-                    layout: language + '/layout.hbs'
-                });
-            } else {
-                req.user.isInRole('Admin').then(isAdmin => {
-                    let isUserAuthorized = isAdmin || req.user.isAuthor(article);
+            Categories.findOne({english: articleCategory}).then(category => {
+                let currentCategory = category.english;
 
-                    Article.update({_id: id}, {$set: {viewCount: viewCount}}).then(updateStatus => {
-                        res.render(language + '/article/details', {
-                            UAK: UAK,
-                            article: article,
-                            category: category,
-                            isUserAuthorized: isUserAuthorized,
-                            layout: language + '/layout.hbs'
+                if (req.session.language == 'Bulgarian') {
+                    currentCategory = category.bulgarian;
+                }
+
+                if (!req.user) {
+                    res.render(language + '/article/details', {
+                        article: article,
+                        category: currentCategory,
+                        isUserAuthorized: false,
+                        layout: language + '/layout.hbs'
+                    });
+                } else {
+                    req.user.isInRole('Admin').then(isAdmin => {
+                        let isUserAuthorized = isAdmin || req.user.isAuthor(article);
+                        let isAuthor = req.user.isAuthor(article);
+
+                        Article.update({_id: id}, {$set: {viewCount: viewCount}}).then(updateStatus => {
+                            res.render(language + '/article/details', {
+                                UAK: UAK,
+                                article: article,
+                                category: currentCategory,
+                                isUserAuthorized: isUserAuthorized,
+                                isAuthor: isAuthor,
+                                layout: language + '/layout.hbs'
+                            });
                         });
                     });
-                });
-            }
+                }
+            });
         })
     },
 
@@ -167,18 +152,31 @@ module.exports = {
         Article.findById(id).then(article => {
 
             req.user.isInRole('Admin').then(isAdmin => {
-                if(!isAdmin && !req.user.isAuthor(article)) {
+                if (!isAdmin && !req.user.isAuthor(article)) {
                     res.redirect('/');
                     return;
                 }
+                Categories.findOne({english: articleCategory}).then(category => {
+                    let currentCategory = category.english;
 
-                if (req.session.UAK == 'kR0Efjbnru') {
-                    res.render(language + '/article/edit', {UAK: true, article: article, layout: language + '/layout.hbs'})
-                } else {
-                    res.render(language + '/article/edit', {article: article, layout: language + '/layout.hbs'})
-                }
+                    if (req.session.language == 'Bulgarian') {
+                        currentCategory = category.bulgarian;
+                    }
+
+                    let UAK = false;
+
+                    if (req.session.UAK == 'kR0Efjbnru') {
+                        UAK = true;
+                    }
+
+                    res.render(language + '/article/edit', {
+                        UAK: UAK,
+                        article: article,
+                        layout: language + '/layout.hbs'
+                    })
+                });
             });
-        });
+        })
     },
 
     editPost: (req, res) => {
@@ -260,11 +258,21 @@ module.exports = {
                     return;
                 }
 
-                if (req.session.UAK == 'kR0Efjbnru') {
-                    res.render(language + '/article/delete', {UAK: true, article: article, layout: language + '/layout.hbs'})
-                } else {
-                    res.render(language + '/article/delete', {article: article, layout: language + '/layout.hbs'})
-                }
+                Categories.findOne({english: article.category}).then(category => {
+                    let currentCategory = category.english;
+
+                    if (req.session.language == 'Bulgarian') {
+                        currentCategory = category.bulgarian;
+                    }
+
+                    let UAK = false;
+
+                    if (req.session.UAK == 'kR0Efjbnru') {
+                        UAK = true;
+                    }
+
+                    res.render(language + '/article/delete', {UAK: UAK, article: article,category: currentCategory, layout: language + '/layout.hbs'})
+                });
             });
         });
     },
@@ -343,6 +351,91 @@ module.exports = {
                 UAK: UAK,
                 layout: language + '/layout.hbs',
                 articles: articles.filter(a => a.author == id)
+            });
+        });
+    },
+
+    messageGet: (req, res) => {
+        let id = req.params.id;
+
+        Article.findById({_id: id}).then(article => {
+            let UAK = false;
+
+            if (req.session.UAK == 'kR0Efjbnru') {
+                UAK = true;
+            }
+
+            if (!req.session.language) {
+                req.session.language = 'English';
+            }
+            let language = req.session.language;
+
+            res.render(language + '/article/message', {
+                UAK: UAK,
+                article: article,
+                layout: language + '/layout.hbs'
+            })
+        });
+    },
+
+    messagePost: (req, res) => {
+        let message = req.body.messageContent;
+        let returnEmail = req.body.returnEmail;
+        let id = req.params.id;
+        let currentDate = new Date().toDateString();
+
+        Article.findById({_id: id}).then(article => {
+            let authorId = article.author;
+            let title = article.title;
+
+            User.findById({_id: authorId}).then(author => {
+                let authorEmail = author.email;
+                let englishTemplate =
+                    '<div style="font-size: 18px"><p>Hello <b>' + author.fullName +
+                    '</b>, you have a new message:</p></p><p><br />' + message +
+                    '<br /><br /><p>from:<br />'+ returnEmail +
+                    '</p></p><br /><p>Have a wonderful day!</p><p><a href="http://localhost:3000">Dream Store</a></p><br />' + currentDate +
+                    '</div>';
+                let bulgarianTemplate =
+                    '<div style="font-size: 18px"><p>Привет <b>' + author.fullName +
+                    '</b>, имаш ново съобщение:</p></p><p><br />' + message +
+                    '<br /><br /><p>от:<br />'+ returnEmail +
+                    '</p></p><br /><p>Приятен ден!</p><p><a href="http://localhost:3000">Dream Store</a></p><br />' + currentDate +
+                    '</div>';
+                let messageTemplate = englishTemplate;
+
+                if (author.language == 'Bulgarian') {
+                    messageTemplate = bulgarianTemplate;
+                }
+
+                //Enable IMAP in Gmail //https://support.google.com/a/answer/105694?hl=en
+                // Enable less secure app access ! https://myaccount.google.com/lesssecureapps
+                // Creating a transport object
+                let transporter = nodemailer.createTransport({
+                    service: 'Gmail',
+                    auth: {
+                        user: 'dreamstoreweb@gmail.com', // Your email id XXXX
+                        pass: 'blogblog' // Your password YYYY
+                    }
+                });
+
+                //Create a simple JSON object with the necessary values for send­ing the email.
+                // https://nodemailer.com/message/
+                let mailOptions = {
+                    to: authorEmail, //authorEmail, // list of receivers
+                    subject:  title, // Subject line
+                    html: messageTemplate
+                };
+
+                transporter.sendMail(mailOptions, function(error, info){
+                    if(error){
+                        console.log(error);
+                    }else{
+                        console.log('Message sent !' + info.response);
+                    }
+                });
+
+                res.redirect('/');
             });
         });
     }
