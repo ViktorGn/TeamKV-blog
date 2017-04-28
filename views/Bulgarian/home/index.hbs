@@ -2,23 +2,23 @@
 <form method="post" action="/home" id="categoriesForm">
     <div class="allCategories">
         <div class="col-sm-4 col-md-4 left bottomMargin">
-            <button type="submit" class="categoryOptions" name="Category" value="Vehicles"><img src="/icons/car-icon.png" class="categoryOptionsIcons">Коли и части</button>
-            <button type="submit" class="categoryOptions" name="Category" value="Real Estate"><img src="/icons/home-icon.png" class="categoryOptionsIcons">Недвижими имоти</button>
+            <button type="submit" class="categoryOptions" name="Category" value="Vehicles" title="Автомобили и Авточасти."><img src="/icons/car-icon.png" class="categoryOptionsIcons">Коли и части</button>
+            <button type="submit" class="categoryOptions" name="Category" value="Real Estate" title="Къщи, апартаменти и др."><img src="/icons/home-icon.png" class="categoryOptionsIcons">Недвижими имоти</button>
         </div>
 
         <div class="col-sm-4 col-md-4 left bottomMargin">
-            <button type="submit" class="categoryOptions" name="Category" value="Clothes"><img src="/icons/clothes-icon.png" class="categoryOptionsIcons">Дрехи</button>
-            <button type="submit" class="categoryOptions" name="Category" value="Electronics"><img src="/icons/electronics-icon.png" class="categoryOptionsIcons">Електроника</button>
+            <button type="submit" class="categoryOptions" name="Category" value="Clothes" title="Всякъкви модни аксесоари"><img src="/icons/clothes-icon.png" class="categoryOptionsIcons">Дрехи</button>
+            <button type="submit" class="categoryOptions" name="Category" value="Electronics" title="Телефони, компютри, таблети и др."><img src="/icons/electronics-icon.png" class="categoryOptionsIcons">Електроника</button>
         </div>
 
         <div class="col-sm-4 col-md-4 left bottomMargin">
-            <button type="submit" class="categoryOptions" name="Category" value="Home and Hobby"><img src="/icons/furniture-icon.png" class="categoryOptionsIcons">Дом и хоби</button>
-            <button type="submit" class="categoryOptions" name="Category" value="Jewelry"><img src="/icons/jewelry-icon.png" class="categoryOptionsIcons">Бижута</button>
+            <button type="submit" class="categoryOptions" name="Category" value="Home and Hobby" title="Търсиш нов диван.. или въдица? Това е мястото."><img src="/icons/furniture-icon.png" class="categoryOptionsIcons">Дом и хоби</button>
+            <button type="submit" class="categoryOptions" name="Category" value="Jewelry" title="Пръстени, огърлици, диаманти и т.н."><img src="/icons/jewelry-icon.png" class="categoryOptionsIcons">Бижута</button>
         </div>
     </div>
 </form>
 {{#each articles}}
-<div class="ads">
+<div class="ads" title="Натисни тук за да го разгледаш по-подробно.">
     <article onclick="location.href='/article/details/{{id}}'">
 
         <img src="{{picturePath}}" id="adPicture" alt="Image">

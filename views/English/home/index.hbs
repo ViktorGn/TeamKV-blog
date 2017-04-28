@@ -2,23 +2,23 @@
 <form method="post" action="/home" id="categoriesForm">
     <div class="allCategories">
         <div class="col-sm-4 col-md-4 left bottomMargin">
-            <button type="submit" class="categoryOptions" name="Category" value="Vehicles"><img src="/icons/car-icon.png" class="categoryOptionsIcons">Vehicles and parts</button>
-            <button type="submit" class="categoryOptions" name="Category" value="Real Estate"><img src="/icons/home-icon.png" class="categoryOptionsIcons">Real Estate</button>
+            <button type="submit" class="categoryOptions" name="Category" value="Vehicles" title="All kinds of vehicles and automotive parts."><img src="/icons/car-icon.png" class="categoryOptionsIcons">Vehicles and parts</button>
+            <button type="submit" class="categoryOptions" name="Category" value="Real Estate" title="House, building, apartments, everything!"><img src="/icons/home-icon.png" class="categoryOptionsIcons">Real Estate</button>
         </div>
 
         <div class="col-sm-4 col-md-4 left bottomMargin">
-            <button type="submit" class="categoryOptions" name="Category" value="Clothes"><img src="/icons/clothes-icon.png" class="categoryOptionsIcons">Clothes</button>
-            <button type="submit" class="categoryOptions" name="Category" value="Electronics"><img src="/icons/electronics-icon.png" class="categoryOptionsIcons">Electronics</button>
+            <button type="submit" class="categoryOptions" name="Category" value="Clothes" title="Fashion and style!"><img src="/icons/clothes-icon.png" class="categoryOptionsIcons">Clothes</button>
+            <button type="submit" class="categoryOptions" name="Category" value="Electronics" title="Phones, tables, you name it, we got it!"><img src="/icons/electronics-icon.png" class="categoryOptionsIcons">Electronics</button>
         </div>
 
         <div class="col-sm-4 col-md-4 left bottomMargin">
-            <button type="submit" class="categoryOptions" name="Category" value="Home and Hobby"><img src="/icons/furniture-icon.png" class="categoryOptionsIcons">Home and Hobby</button>
-            <button type="submit" class="categoryOptions" name="Category" value="Jewelry"><img src="/icons/jewelry-icon.png" class="categoryOptionsIcons">Jewelry</button>
+            <button type="submit" class="categoryOptions" name="Category" value="Home and Hobby" title="Everything for your garden, home or any other hobby."><img src="/icons/furniture-icon.png" class="categoryOptionsIcons">Home and Hobby</button>
+            <button type="submit" class="categoryOptions" name="Category" value="Jewelry" title="Women love this place."><img src="/icons/jewelry-icon.png" class="categoryOptionsIcons">Jewelry</button>
         </div>
     </div>
 </form>
 {{#each articles}}
-<div class="ads">
+<div class="ads" title="Click here to take a closer look.">
     <article onclick="location.href='/article/details/{{id}}'">
 
         <img src="{{picturePath}}" id="adPicture" alt="Image">

@@ -14,8 +14,8 @@
 <div class="mainCont" style="margin-top: -70px">
     <header>
         <form method="post" action="/language">
-            <input type="image" name="Language" value="Bulgarian" id="BGLanguage" src="/icons/Bulgaria-Flag.png" alt="submit">
-            <input type="image" name="Language" value="English" id="ENLanguage" src="/icons/UK-flag-icon.png" alt="submit">
+            <input type="image" name="Language" value="Bulgarian" id="BGLanguage" src="/icons/Bulgaria-Flag.png" alt="submit" title="Български">
+            <input type="image" name="Language" value="English" id="ENLanguage" src="/icons/UK-flag-icon.png" alt="submit" title="Английски">
         </form>
 
         <!-- LOGO -->
@@ -31,31 +31,31 @@
                 <button onclick="myFunction()" class="dropbtn">Моят профил</button>
                 <div id="myDropdown" class="dropdown-content">
                     {{#if UAK}}
-                        <a href="/article/myArticles">Моите обяви</a>
-                        <a href="/admin/panel">Админ панел</a>
-                        <a href="/user/logout">Изход</a>
+                        <a href="/article/myArticles" title="Показва моите обяви.">Моите обяви</a>
+                        <a href="/admin/panel" title="Потребителски опции.">Админ панел</a>
+                        <a href="/user/logout" title="Приятен ден!">Изход</a>
                     {{/if}}
                     {{#unless UAK}}
-                        <a href="/article/myArticles">Моите обяви</a>
-                        <a href="/user/logout">Изход</a>
+                        <a href="/article/myArticles" title="Показва моите обяви.">Моите обяви</a>
+                        <a href="/user/logout" title="Заповядай отново!">Изход</a>
                     {{/unless}}
                 </div>
             </div>
             <div id="welcome">Привет (<span style="text-transform: capitalize; font-weight: bold">{{user.fullName}}</span>), прочети за нас!</div>
         {{/if}}
         {{#unless user}}
-            <div onclick="location.href='/user/login'" class="userMenu"><span class="joinLink">Вход</span></div>
+            <div onclick="location.href='/user/login'" class="userMenu"><span class="joinLink" title="Влез в профила си.">Вход</span></div>
         {{/unless}}
         <!-- Menu -->
 
         <div id="menu">
             <div id="leftSideOfMenu">
-                <a href="/article/create" id="postLink">Публикувай обява</a>
+                <a href="/article/create" id="postLink" title="Съзвай нова обява.">Публикувай обява</a>
             </div>
             <form method="post" action="/search">
                 <div id="searchBar">
                     <input id="searchField" type="text" name="SearchInput" placeholder="Търся...">
-                    <button type="submit" id="searchButton"></button>
+                    <button type="submit" id="searchButton" title="Какво точно търсиш?"></button>
                 </div>
             </form>
         </div>

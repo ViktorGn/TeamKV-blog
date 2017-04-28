@@ -9,51 +9,53 @@
     <script src="/javascripts/script.js"></script>
 </head>
 <body>
+
 <!-- MAIN CONTENT DIV -->
 <div class="mainCont" style="margin-top: -70px">
     <header>
         <form method="post" action="/language">
-            <input type="image" name="Language" value="Bulgarian" id="BGLanguage" src="/icons/Bulgaria-Flag.png" alt="submit">
-            <input type="image" name="Language" value="English" id="ENLanguage" src="/icons/UK-flag-icon.png" alt="submit">
+            <input type="image" name="Language" value="Bulgarian" id="BGLanguage" src="/icons/Bulgaria-Flag.png" alt="submit" title="Bulgarian">
+            <input type="image" name="Language" value="English" id="ENLanguage" src="/icons/UK-flag-icon.png" alt="submit" title="English">
         </form>
 
         <!-- LOGO -->
 
         <img onclick="location.href='/'" id="logo" src="/icons/LOGO1.png">
+
         <div class="pointlessMarketingTitle" id="companyName">DREAM TEAM STORE</div>
         <div class="pointlessMarketingTitle" id="companyMotto">The Store of YOUR dreams!</div>
 
         <!-- User Menu -->
         {{#if user}}
             <div class="dropdown">
-                <button onclick="myFunction()" class="dropbtn">Account Options</button>
+                <button onclick="myFunction()" class="dropbtn">My Profile</button>
                 <div id="myDropdown" class="dropdown-content">
                     {{#if UAK}}
-                        <a href="/article/myArticles">My Articles</a>
-                        <a href="/admin/panel">Admin panel</a>
-                        <a href="/user/logout">Logout</a>
+                        <a href="/article/myArticles" title="Displays all my articles!">My Articles</a>
+                        <a href="/admin/panel" title="Admin Configurations">Admin panel</a>
+                        <a href="/user/logout" title="Bye, bye!">Logout</a>
                     {{/if}}
                     {{#unless UAK}}
-                        <a href="/article/myArticles">My Articles</a>
-                        <a href="/user/logout">Logout</a>
+                        <a href="/article/myArticles" title="Displays all my articles!">My Articles</a>
+                        <a href="/user/logout" title="Bye, bye!">Logout</a>
                     {{/unless}}
                 </div>
             </div>
             <div id="welcome">Welcome (<span style="text-transform: capitalize; font-weight: bold">{{user.fullName}}</span>), check us out!</div>
         {{/if}}
         {{#unless user}}
-            <div onclick="location.href='/user/login'" class="userMenu"><span class="joinLink">Join</span></div>
+            <div onclick="location.href='/user/login'" class="userMenu"><span class="joinLink" title="Did you know you can LogIn?">Join</span></div>
         {{/unless}}
         <!-- Menu -->
 
         <div id="menu">
             <div id="leftSideOfMenu">
-                <a href="/article/create" id="postLink">New Article</a>
+                <a href="/article/create" id="postLink" title="Here is where articles are born.">New Article</a>
             </div>
             <form method="post" action="/search">
                 <div id="searchBar">
                     <input id="searchField" type="text" name="SearchInput" placeholder="Looking for..." required>
-                    <button type="submit" id="searchButton"></button>
+                    <button type="submit" id="searchButton" title="What are you looking for?"></button>
                 </div>
             </form>
         </div>
