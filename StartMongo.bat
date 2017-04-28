@@ -1,2 +1,2 @@
-mongod --dbpath C:\MongoData
+mongod --dbpath C:\JS\TeamKV-blog\blogDB
 
