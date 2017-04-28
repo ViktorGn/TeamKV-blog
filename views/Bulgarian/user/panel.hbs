@@ -1,0 +1,25 @@
+<form method="post" onsubmit="return confirm('Сигурен ли си, че искаш да продължиш?');" action="/admin/panel" id="panel">
+    <table id="rounded-corner">
+        <tr style="border-bottom: 1px solid rgba(150, 150, 150, 0.1); font-weight: bold">
+            <td>Име</td>
+            <td>ID</td>
+            <td>Имейл</td>
+            <td>Роля</td>
+            <td class="text-center">Добави Админ</td>
+            <td class="text-center">Премахни Админ</td>
+            <td class="text-center">Изтрий</td>
+        </tr>
+        {{#each allUser}}
+            <tr>
+                <td>{{fullName}}</td>
+                <td>{{id}}</td>
+                <td>{{email}}</td>
+                <td>{{displayRole}}</td>
+
+                <td class="text-center"><button class="userIconButtons" name="makeAdmin" value="{{id}}"><img src="/icons/user_edit.png" /></button></td>
+                <td class="text-center"><button class="userIconButtons" name="removeAdmin" value="{{id}}"><img src="/icons/remove-admin.png" style="width: 20px" /></button></td>
+                <td class="text-center"><button class="userIconButtons" name="delete" value="{{id}}"><img src="/icons/trash.png" /></button></td>
+            </tr>
+        {{/each}}
+    </table>
+</form>

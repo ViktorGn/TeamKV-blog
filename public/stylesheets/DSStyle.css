@@ -148,6 +148,26 @@ body {
 .bottomMargin {
     margin-bottom: 10px;
 }
+/* Admin Panel */
+
+#rounded-corner {
+    margin: 20px;
+    width: 95%;
+    text-align: left;
+    padding: 8px;
+    color: #669;
+}
+
+.userIconButtons {
+    background-color: transparent;
+    border: none;
+    transition: 0.5s;
+}
+
+.userIconButtons:hover {
+    opacity: 0.5;
+    transition: 0.5s;
+}
 
 /* LogIn, Register, Profile*/
 
@@ -205,10 +225,6 @@ body {
     margin-top: 5px;
     border-radius: 4px;
     border-width: thin;
-}
-
-#inputFullName {
-    text-transform: capitalize;
 }
 
 #inputEmail:focus, #inputPassword:focus, #inputFullName:focus {

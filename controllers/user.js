@@ -1,7 +1,9 @@
 const User = require('mongoose').model('User');
 const Role = require('mongoose').model('Role');
+const Article = require('mongoose').model('Article');
 const encryption = require('./../utilities/encryption');
 const nodemailer = require('nodemailer');
+const fileSystem = require('fs');
 
 module.exports = {
     registerGet: (req, res) => {
@@ -18,6 +20,12 @@ module.exports = {
 
         User.findOne({email: registerArgs.email}).then(user => {
             let errorMsg = '';
+            let passwordLength = registerArgs.password.length;
+
+            if (passwordLength < 6) {
+                errorMsg = 'Password too short';
+            }
+
             if (user) {
                 errorMsg = 'The email address you have entered is already registered.';
             } else if (registerArgs.password !== registerArgs.repeatedPassword) {
@@ -37,6 +45,7 @@ module.exports = {
                 let passwordHash = encryption.hashPassword(registerArgs.password, salt);
                 let roles = [];
 
+
                 Role.findOne({name: 'User'}).then(role => {
                     roles.push(role.id);
 
@@ -53,14 +62,7 @@ module.exports = {
                         role.users.push(user.id);
                         role.save(err => {
                            if (err) {
-
-                           }  else {
-                               req.logIn(user, (err) => {
-                                   if (err) {
-                                       registerArgs.error = err.message;
-                                       res.render(language + '/user/register', {error: err.message, layout: language + '/join.hbs'});
-                                   }
-                               })
+                               console.log(err)
                            }
                         });
 
@@ -103,7 +105,9 @@ module.exports = {
                             }
                         });
 
-                        res.redirect('/');
+                        req.logIn(user, (err) => {
+                            res.redirect('/');
+                        })
                     })
                 });
             }
@@ -163,5 +167,151 @@ module.exports = {
         delete req.session.passport;
         req.logOut();
         res.redirect('/');
+    },
+
+    addAdminsGet: (req, res) => {
+        if(!req.user) {
+            res.status(404).send('Not found');
+            return;
+        }
+
+        if (!req.session.language) {
+            req.session.language = 'English';
+        }
+        let language = req.session.language;
+
+        req.user.isInRole('Admin').then(isAdmin => {
+            if (!isAdmin) {
+                res.status(404).send('Not found');
+                return;
+            }
+            let UAK = false;
+
+            if (isAdmin) {
+                req.session.UAK = 'kR0Efjbnru'; // Unique Admin Key -> kR0Efjbnru
+                UAK = true;
+            } else {
+                delete req.session.UAK;
+            }
+
+            Role.find({}).then(roles => {
+                let roleAdmin = roles.find(r => r.name === 'Admin');
+                let roleUser = roles.find(r => r.name === 'User');
+
+                User.find({}).then(users => {
+                    for (user of users) {
+                        if (user.roles.find(r => r == roleAdmin.id)) {
+                            user.displayRole = 'Admin';
+                        } else if (user.roles.find(r => r == roleUser.id)) {
+                            user.displayRole = 'User';
+                        }
+                    }
+                    User.findOne({_id: req.session.passport.user}).then(currentUser => {
+
+                        res.render(language + '/user/panel', {layout: language + '/layout.hbs', allUser: users, user: currentUser, UAK: UAK})
+                    });
+                });
+            });
+
+        });
+    },
+
+    addAdminsPost: (req, res) => {
+        if(!req.user) {
+            res.status(404).send('Not found');
+            return;
+        }
+
+        req.user.isInRole('Admin').then(isAdmin => {
+            if (!isAdmin) {
+                res.status(404).send('Not found');
+                return;
+            }
+
+            let makeAdmin = req.body.makeAdmin;
+            let removeAdmin = req.body.removeAdmin;
+            let deleteUser = req.body.delete;
+            let id = makeAdmin || removeAdmin || deleteUser;
+
+            Role.find({}).then(roles => {
+                let roleAdmin = roles.find(r => r.name === 'Admin');
+                let roleUser = roles.find(r => r.name === 'User');
+
+                User.findOne({_id: id}).then(user => {
+                    let focusUserAdmin = user.roles.find(r => r == roleAdmin.id);
+
+                    if (makeAdmin && !focusUserAdmin) {
+                        user.roles = [];
+                        user.roles.push(roleAdmin.id);
+                        user.save(err => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+
+                        let index = roleUser.users.indexOf(id);
+                        roleUser.users.splice(index, 1);
+                        roleUser.save(err => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+
+                        roleAdmin.users.push(id);
+                        roleAdmin.save(err => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                    } else if (removeAdmin && focusUserAdmin) {
+                        user.roles = [];
+                        user.roles.push(roleUser.id);
+                        user.save(err => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+
+                        let index = roleAdmin.users.indexOf(id);
+                        roleAdmin.users.splice(index, 1);
+                        roleAdmin.save(err => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+
+                        roleUser.users.push(id);
+                        roleUser.save(err => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                    } else if (deleteUser && !focusUserAdmin) {
+                        User.findOneAndRemove({_id: id}).then(removedUser => {
+                            if (removedUser.articles) {
+                                for (article of removedUser.articles) {
+                                    Article.findOneAndRemove({_id: article}).then(article => {
+                                        if (article.picturePath !== "/pictures/noPicture.jpg") {
+                                            fileSystem.unlink('./public' + article.picturePath, msg => {
+                                                console.log('Deleted - ' + article.picturePath)
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                        });
+
+                        let index = roleUser.users.indexOf(id);
+                        roleUser.users.splice(index, 1);
+                        roleUser.save(err => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                    res.redirect('/admin/panel')
+                });
+            });
+        });
     }
 };

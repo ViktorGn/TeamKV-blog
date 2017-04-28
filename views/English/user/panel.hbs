@@ -1,0 +1,25 @@
+<form method="post" onsubmit="return confirm('Are you sure you want to continue?');" action="/admin/panel">
+    <table id="rounded-corner">
+        <tr style="border-bottom: 1px solid rgba(150, 150, 150, 0.1); font-weight: bold">
+            <td>Name</td>
+            <td>ID</td>
+            <td>Email</td>
+            <td>Role</td>
+            <td class="text-center">Add Admin</td>
+            <td class="text-center">Remove Admin</td>
+            <td class="text-center">Delete</td>
+        </tr>
+        {{#each allUser}}
+        <tr>
+            <td>{{fullName}}</td>
+            <td>{{id}}</td>
+            <td>{{email}}</td>
+            <td>{{displayRole}}</td>
+
+            <td class="text-center"><button type="submit" class="userIconButtons" name="makeAdmin" value="{{id}}"><img src="/icons/user_edit.png" /></button></td>
+            <td class="text-center"><button type="submit" class="userIconButtons" name="removeAdmin" value="{{id}}"><img src="/icons/remove-admin.png" style="width: 20px" /></button></td>
+            <td class="text-center"><button type="submit" class="userIconButtons" name="delete" value="{{id}}"><img src="/icons/trash.png" /></button></td>
+        </tr>
+        {{/each}}
+    </table>
+</form>

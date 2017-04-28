@@ -156,7 +156,7 @@ module.exports = {
                     res.redirect('/');
                     return;
                 }
-                Categories.findOne({english: articleCategory}).then(category => {
+                Categories.findOne({english: article.category}).then(category => {
                     let currentCategory = category.english;
 
                     if (req.session.language == 'Bulgarian') {

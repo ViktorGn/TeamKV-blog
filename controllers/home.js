@@ -20,12 +20,14 @@ module.exports = {
                     let language = req.session.language;
                     req.user.isInRole('Admin').then(isAdmin => {
                         let UAK = false;
+
                         if (isAdmin) {
                             req.session.UAK = 'kR0Efjbnru'; // Unique Admin Key -> kR0Efjbnru
-                            let UAK = true;
+                            UAK = true;
                         } else {
                             delete req.session.UAK;
                         }
+
                         res.render(language + '/home/index', {
                             layout: language + '/layout',
                             articles: articles,

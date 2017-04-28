@@ -31,13 +31,12 @@
                 <button onclick="myFunction()" class="dropbtn">Моят профил</button>
                 <div id="myDropdown" class="dropdown-content">
                     {{#if UAK}}
-                        <a href="article/myArticles">Моите обяви</a>
-                        <a href="#">Добавяна на Администратори</a>
-                        <a href="#">Изтриване на акаунт</a>
+                        <a href="/article/myArticles">Моите обяви</a>
+                        <a href="/admin/panel">Админ панел</a>
                         <a href="/user/logout">Изход</a>
                     {{/if}}
                     {{#unless UAK}}
-                        <a href="article/myArticles">Моите обяви</a>
+                        <a href="/article/myArticles">Моите обяви</a>
                         <a href="/user/logout">Изход</a>
                     {{/unless}}
                 </div>
@@ -75,9 +74,7 @@
 </div>
 
 <footer>
-    <div class="container modal-footer">
-        <a>Terms and Conditions</a> //TODO<br />
-        <a>Contact</a> //TODO<br />
+    <div style="width: 95%; height: 10px; padding: 20px; text-align: right">
         <p>&copy; 2016 - Dream Team Foundation</p>
     </div>
 </footer>
