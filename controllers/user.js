@@ -68,10 +68,12 @@ module.exports = {
 
                         let englishTemplate =
                             '<div style="font-size: 18px"><p>Welcome <b>' + user.fullName +
-                            '</b>!</p><p><br />We are very happy to see you!</p><p>Stay cool and keep browsing!</p><br /><p>Have a wonderful day!</p><p><a href="http://localhost:3000">Dream Store</a></p><br /></div>';
+                            '</b>!</p><p><br />We are very happy to see you!</p><p>Stay cool and keep browsing!</p><br /><p>Have a wonderful day!</p><p><a href="http://localhost:3000">Dream Store</a></p><br /></div>' +
+                            '<br /><p>For contacts: dreamstoreweb@gmail.com</p>';
                         let bulgarianTemplate =
                             '<div style="font-size: 18px"><p>Добре дошъл <b>' + user.fullName +
-                            '</b>!</p><p><br />Добре дошъл в нашия магазин!</p><p>Дано намериш всичко желано.</p><br /><p>Приятен ден!</p><p><a href="http://localhost:3000">Dream Store</a></p><br /></div>';
+                            '</b>!</p><p><br />Добре дошъл в нашия магазин!</p><p>Дано намериш всичко желано.</p><br /><p>Приятен ден!</p><p><a href="http://localhost:3000">Dream Store</a></p><br /></div>' +
+                            '<br /><p>За контакти: dreamstoreweb@gmail.com</p>';
                         let messageTemplate = englishTemplate;
 
                         if (language == 'Bulgarian') {

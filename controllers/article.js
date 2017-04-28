@@ -87,6 +87,11 @@ module.exports = {
     details: (req, res) => {
         let id = req.params.id;
         let UAK = false;
+
+        if  (!req.session.language) {
+            req.session.language = 'English';
+        }
+
         let language = req.session.language;
 
         if (req.session.UAK == 'kR0Efjbnru') {
@@ -386,21 +391,23 @@ module.exports = {
 
         Article.findById({_id: id}).then(article => {
             let authorId = article.author;
-            let title = article.title;
+            let title = 'RE:' + article.title;
 
             User.findById({_id: authorId}).then(author => {
                 let authorEmail = author.email;
                 let englishTemplate =
                     '<div style="font-size: 18px"><p>Hello <b>' + author.fullName +
                     '</b>, you have a new message:</p></p><p><br />' + message +
-                    '<br /><br /><p>from:<br />'+ returnEmail +
+                    '<br /><br /><p>from: '+ returnEmail +
+                    '<p>Article link: <a href="' + req.headers.origin + '/article/details/' + article.id + '">here.</a></p>' +
                     '</p></p><br /><p>Have a wonderful day!</p><p><a href="http://localhost:3000">Dream Store</a></p><br />' + currentDate +
                     '</div>';
                 let bulgarianTemplate =
                     '<div style="font-size: 18px"><p>Привет <b>' + author.fullName +
                     '</b>, имаш ново съобщение:</p></p><p><br />' + message +
-                    '<br /><br /><p>от:<br />'+ returnEmail +
-                    '</p></p><br /><p>Приятен ден!</p><p><a href="http://localhost:3000">Dream Store</a></p><br />' + currentDate +
+                    '<br /><br /><p>от: '+ returnEmail +
+                    '<p>Линк към обявата: <a href="' + req.headers.origin + '/article/details/' + article.id + '">тук.</a></p>' +
+                    '</p></p><br /><p>Приятен ден</p><p><a href="http://localhost:3000">Dream Store</a></p><br />' + currentDate +
                     '</div>';
                 let messageTemplate = englishTemplate;
 
