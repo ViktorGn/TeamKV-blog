@@ -45,7 +45,7 @@ module.exports = {
         if (picture) {
             // get the extension and rename to unique filename
             pictureFilenameExt=picture.name.split('.').pop();
-            let filename =  uuid.v4() + pictureFilenameExt; /* instead of picture.name */
+            let filename =  uuid.v4() + '.' + pictureFilenameExt; /* instead of picture.name */
             articleArgs.picturePath = '/pictures/' + filename;
                 picture.mv('./public/pictures/' + filename, err => {
                 if (err) {
