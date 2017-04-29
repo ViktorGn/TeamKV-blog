@@ -13,6 +13,7 @@ The purpose of the project is to develop a simple Web-based application e-Store 
 -	Publish new content, upload pictures, view, edit and delete own articles
 -	Send inquiries to the article authors by system generated e-mail with the question and link to the article in question
 -	Select language – BG or EN and show views in the chosen language
+-   Tooltips
 -	Full text search
 -	Article View count and unique Article ID
 -	Roles – Admin and User
