@@ -1,4 +1,5 @@
-<a href="https://docs.google.com/document/d/1T6FmUFfpttav-vMU-FJID-Ad2fJtqpKiKMxtIEgY-GY/edit?usp=sharing">Project Description</a>
+<h2>Project Description</h2>
+<a href="https://docs.google.com/document/d/1T6FmUFfpttav-vMU-FJID-Ad2fJtqpKiKMxtIEgY-GY/edit?usp=sharing" target="_black">For details</a>
 
 Web-based application e-Store
 
