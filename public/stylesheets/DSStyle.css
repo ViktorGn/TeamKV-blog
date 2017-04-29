@@ -57,6 +57,7 @@ body {
 
 #adPicture {
     height: 97px;
+    max-width: 150px;
 }
 
 #detailsArticle {
